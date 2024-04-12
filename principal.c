@@ -25,28 +25,16 @@ typedef struct {
 
 
 int main() {
-    livro*livros = NULL;
+    livro *livros = NULL;
     int livro_count = 0;
-
-    emprestimo *emprestimos = NULL;
+    Emprestimo *emprestimos = NULL;
     int emprestimo_count = 0;
 
     inicializar_biblioteca("livros.csv", &livros, &livro_count);
 
     int choice;
     do {
-        printf("1. Adicionar Livro\n"
-               "2. Listar Livros\n"
-               "3. Emprestar Livro\n"
-               "4. Devolver Livro\n"
-               "5. Renovar Empréstimo\n"
-               "6. Relatório de Livros Mais Emprestados\n"
-               "7. Relatório de Livros Não Devolvidos\n"
-               "8. Relatório de Maiores Locatários\n"
-               "9. Salvar Alterações\n"
-               "0. Sair e Salvar\n"
-               "Escolha uma opção: ");
-
+        printf("1. Adicionar Livro\n2. Listar Livros\n3. Emprestar Livro\n4. Devolver Livro\n5. Renovar Empréstimo\n6. Relatório de Livros Mais Emprestados\n7. Relatório de Livros Não Devolvidos\n8. Relatório de Maiores Locatários\n9. Salvar Alterações\n0. Sair e Salvar\nEscolha uma opção: ");
         scanf("%d", &choice);
         getchar();  // Limpa buffer do stdin
 
@@ -55,40 +43,40 @@ int main() {
                 adicionar_livro(&livros, &livro_count);
                 break;
             case 2:
-                pesquisar_livros(livros, livro_count);
+                printlivros(livros, livro_count);
                 break;
             case 3:
-                inicializar_emprestimos(livros, livro_count, &emprestimos, &emprestimo_count);
-                registrar_emprestimo(livros, emprestimos, emprestimo_count, livro_count);
+                inicializar_emprestimo(livros, livro_count, &loans, &loan_count);
+                updateLoanCount(livros, loans, loan_count, livro_count);
                 break;
             case 4:
                 printf("Digite o ID do empréstimo para devolução: ");
-                int emprestimo_id;
-                scanf("%d", &emprestimo_id);
-                devolver_livro(livros, emprestimos, &emprestimo_count, emprestimo_id);
+                int loan_id;
+                scanf("%d", &loan_id);
+                returnlivro(livros, loans, &loan_count, loan_id);
                 break;
             case 5:
                 printf("Digite o ID do empréstimo para renovação: ");
-                scanf("%d", &emprestimo_id);
-                renovar_emprestimo(emprestimos, emprestimo_count, emprestimo_id);
+                scanf("%d", &loan_id);
+                renewLoan(loans, loan_count, loan_id);
                 break;
             case 6:
-                relatorio_livros_mais_emprestados(livros, livro_count);
+                reportMostLoanedlivros(livros, livro_count);
                 break;
             case 7:
-                relatorio_livros_nao_devolvidos(emprestimos, emprestimo_count, livros);
+                reportUnreturnedlivros(loans, loan_count, livros);
                 break;
             case 8:
-                relatorio_usuarios_com_mais_emprestimos(emprestimos, emprestimo_count);
+                reportTopBorrowers(loans, loan_count);
                 break;
             case 9:
-                gravar_biblioteca("livros.csv", livros, livro_count);
-                finalizar_emprestimo("emprestimos.csv", emprestimos, emprestimo_count, livros);
+                savelivrosToFile("livros.csv", livros, livro_count);
+                saveLoansToFile("loans.csv", emprestimos, emprestimo_count, livros);
                 printf("Dados salvos com sucesso!\n");
                 break;
             case 0:
-                gravar_biblioteca("livros.csv", livros, livro_count);
-                finalizar_emprestimo("emprestimos.csv", emprestimos, emprestimo_count, livros);
+                savelivrosToFile("livros.csv", livros, livro_count);
+                saveLoansToFile("loans.csv", emprestikmos, emprestimo_count, livros);
                 printf("Saindo e salvando dados...\n");
                 break;
             default:

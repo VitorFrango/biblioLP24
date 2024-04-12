@@ -5,6 +5,11 @@
 #ifndef BIBLIOTECA_PRINCIPAL_H
 #define BIBLIOTECA_PRINCIPAL_H
 
-void inicializar_biblioteca(const char *filename, Livro **livros, int *count)
+#include "gestao_livros.h"
+#include "gestao_emprestimos.h"
+#include "io_dados.h"
+
+void inicializar_biblioteca(const char *filename, Livro **livros, int *count);
+void empresta_livro(Livro *livro, int count, Emprestimo **emprestimos, int *emprestimo_count);
 
 #endif //BIBLIOTECA_PRINCIPAL_H

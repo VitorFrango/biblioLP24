@@ -5,16 +5,11 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "gestao_livros.h"
-#include "principal.h"
-#include "gera_relatorios.h"
-#include "io_dados.h"
-#include "gestao_emprestimos.h"
 
 #define MAX_LINHA_TAM 300
-#define MAX_TITULO 100
-#define MAX_USUARIO 50
 
 
 void inicializar_biblioteca(const char *filename, Livro **livros, int *count){
@@ -39,8 +34,7 @@ void inicializar_biblioteca(const char *filename, Livro **livros, int *count){
         (*count)++;
     }
     fclose(file);
-};
-void expandir_biblioteca();
+}
 
 void adicionar_livro(Livro **livros, int *count){
     *livros = realloc(*livros, (*count + 1) * sizeof(Livro));
@@ -60,7 +54,35 @@ void adicionar_livro(Livro **livros, int *count){
     (*count)++;
 };
 
+void guardar_livros(const char *filename, Livro *livros, int count){
+    FILE *file = fopen(filename, "w");
+    if (file == NULL) {
+        printf("Erro ao abrir o arquivo %s.\n", filename);
+        exit(1);
+    }
+    for (int i = 0; i < count; i++) {
+        fprintf(file, "%s,%s,%s,%d\n",
+                livros[i].titulo,
+                livros[i].autor,
+                livros[i].genero,
+                livros[i].copias);
+    }
+    fclose(file);
+};
+
+void pesquisar_livros(Livro *livros, int count, const char *termo_pesquisa){
+    for (int i = 0; i < count; i++) {
+        if (strstr(livros[i].titulo, termo_pesquisa) != NULL ||
+            strstr(livros[i].autor, termo_pesquisa) != NULL ||
+            strstr(livros[i].genero, termo_pesquisa) != NULL) {
+            printf("Título: %s\nAutor: %s\nGênero: %s\nCópias: %d\n\n",
+                   livros[i].titulo, livros[i].autor, livros[i].genero, livros[i].copias);
+        }
+    }
+};
+
 
 void remover_livro(const char *titulo);
 void editar_livro(const char *titulo);
-void pesquisar_livros(const char *termo_pesquisa);
+
+
