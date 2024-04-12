@@ -2,7 +2,11 @@
 // Created by Vitor Frango on 12/04/2024.
 //
 
-#ifndef BIBLIOTECA_GERA_RELATORIOS_H
-#define BIBLIOTECA_GERA_RELATORIOS_H
+#ifndef GERA_RELATORIOS_H
+#define GERA_RELATORIOS_H
 
-#endif //BIBLIOTECA_GERA_RELATORIOS_H
+void relatorio_livros_mais_emprestados();
+void relatorio_livros_nao_devolvidos();
+void relatorio_usuarios_com_mais_emprestimos();
+
+#endif

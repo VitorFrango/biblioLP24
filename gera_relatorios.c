@@ -3,3 +3,6 @@
 //
 
 #include "gera_relatorios.h"
+
+void relatorio_livros_nao_devolvidos();
+void relatorio_usuarios_com_mais_emprestimos();

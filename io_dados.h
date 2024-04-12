@@ -4,7 +4,15 @@
 
 //
 
-#ifndef BIBLIOTECA_IO_DADOS_H
-#define BIBLIOTECA_IO_DADOS_H
+#ifndef IO_DADOS_H
+#define IO_DADOS_H
 
-#endif //BIBLIOTECA_IO_DADOS_H
+#include "gestao_livros.h"
+#include "gestao_emprestimos.h"
+
+void carregar_livros_csv(const char *nome_arquivo);
+void salvar_livros_csv(const char *nome_arquivo);
+void carregar_emprestimos_csv(const char *nome_arquivo);
+void salvar_emprestimos_csv(const char *nome_arquivo);
+
+#endif

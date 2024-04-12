@@ -1,3 +1,12 @@
 # ninja log v5
 0	266	1712933268355750980	CMakeFiles/biblioteca.dir/main.c.o	f916720c575c8727
+0	69	1712937041272843262	build.ninja	faf5b5592d888252
+5	347	1712934065183126785	CMakeFiles/biblioteca.dir/principal.c.o	295dacfda2371a70
 266	431	1712933268513892816	biblioteca	4147d235305580bc
+2	312	1712934065146028850	CMakeFiles/biblioteca.dir/gestao_emprestimos.c.o	156af683648432c1
+1	312	1712934065146028767	CMakeFiles/biblioteca.dir/gera_relatorios.c.o	babe0c641077c55e
+3	312	1712934065146062891	CMakeFiles/biblioteca.dir/io_dados.c.o	46fcebf27bc1aa23
+4	347	1712934065183112744	CMakeFiles/biblioteca.dir/gestao_livros.c.o	e5873c309e634276
+3	285	1712937488044435646	CMakeFiles/biblioteca.dir/io_dados.c.o	46fcebf27bc1aa23
+3	287	1712937488044435604	CMakeFiles/biblioteca.dir/gera_relatorios.c.o	babe0c641077c55e
+2	302	1712937488064715769	CMakeFiles/biblioteca.dir/main.c.o	f916720c575c8727
