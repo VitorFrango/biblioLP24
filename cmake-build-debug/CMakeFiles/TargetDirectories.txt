@@ -1,0 +1,3 @@
+/Users/vitorfrango/Library/CloudStorage/OneDrive-UniversidadeAberta/1 Ano/Laboratorio de Programação/biblioteca/cmake-build-debug/CMakeFiles/biblioteca.dir
+/Users/vitorfrango/Library/CloudStorage/OneDrive-UniversidadeAberta/1 Ano/Laboratorio de Programação/biblioteca/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/vitorfrango/Library/CloudStorage/OneDrive-UniversidadeAberta/1 Ano/Laboratorio de Programação/biblioteca/cmake-build-debug/CMakeFiles/rebuild_cache.dir
