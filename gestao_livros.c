@@ -1,7 +1,6 @@
 //
 // Created by Vitor Frango on 12/04/2024.
-//Funções para gerIR livros.
-
+// Funções para gerir livros.
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -10,7 +9,6 @@
 #include "gestao_livros.h"
 
 #define MAX_LINHA_TAM 300
-
 
 void inicializar_biblioteca(const char *filename, Livro **livros, int *count){
     FILE *file = fopen(filename, "r");
@@ -52,7 +50,7 @@ void adicionar_livro(Livro **livros, int *count){
     scanf("%d", &(*livros)[*count].copias);
     getchar();  // Limpa buffer do stdin
     (*count)++;
-};
+}
 
 void guardar_livros(const char *filename, Livro *livros, int count){
     FILE *file = fopen(filename, "w");
@@ -68,7 +66,7 @@ void guardar_livros(const char *filename, Livro *livros, int count){
                 livros[i].copias);
     }
     fclose(file);
-};
+}
 
 void pesquisar_livros(Livro *livros, int count, const char *termo_pesquisa){
     for (int i = 0; i < count; i++) {
@@ -79,10 +77,7 @@ void pesquisar_livros(Livro *livros, int count, const char *termo_pesquisa){
                    livros[i].titulo, livros[i].autor, livros[i].genero, livros[i].copias);
         }
     }
-};
-
+}
 
 void remover_livro(const char *titulo);
 void editar_livro(const char *titulo);
-
-

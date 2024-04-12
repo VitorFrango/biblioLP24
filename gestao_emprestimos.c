@@ -1,9 +1,8 @@
 //
 // Created by Vitor Frango on 12/04/2024.
-//Funções para gerIR empréstimos.
+// Funções para gerir empréstimos.
 
 #include <time.h>
-#include "gestao_emprestimos.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -13,14 +12,12 @@
 #include "io_dados.h"
 #include "gestao_emprestimos.h"
 
-
 typedef struct {
     char titulo[MAX_TITULO];
     char usuario[MAX_USUARIO];
     time_t data_emprestimo;
     time_t data_devolucao;
 } Emprestimo;
-
 
 void inicializar_emprestimos(void empresta_livro(Livro *livro, int count, Emprestimo **emprestimos, int *emprestimo_count) {
     int livro_id;
@@ -52,15 +49,21 @@ void inicializar_emprestimos(void empresta_livro(Livro *livro, int count, Empres
 }
 
 
-
-void devolver_livro(Livro *Livro, int count, Emprestimo **emprestimos, int *emprestimo_count) {
+void devolver_livro(Livro *livros, int count, Emprestimo **emprestimos, int *emprestimo_count) {
     char titulo[MAX_TITULO];
     printf("Digite o título do livro a ser devolvido: ");
     fgets(titulo, MAX_TITULO, stdin);
     for (int i = 0; i < *emprestimo_count; i++) {
         if (strcmp((*emprestimos)[i].titulo, titulo) == 0) {
-            for (int j = i; j < *emprestimo_count - 1; j++) {
-                (*emprestimos)[j] = (*emprestimos)[j + 1];
+            for (int j = 0; j < count; j++) {
+                if (strcmp(livros[j].titulo, (*emprestimos)[i].titulo) == 0) {
+                    livros[j].copias++;
+                    break;
+                }
+            }
+            // Remove the returned loan from the array
+            for (int k = i; k < *emprestimo_count - 1; k++) {
+                (*emprestimos)[k] = (*emprestimos)[k + 1];
             }
             *emprestimos = realloc(*emprestimos, (*emprestimo_count - 1) * sizeof(Emprestimo));
             if (*emprestimos == NULL) {
@@ -74,10 +77,9 @@ void devolver_livro(Livro *Livro, int count, Emprestimo **emprestimos, int *empr
     printf("Livro não encontrado.\n");
 }
 
-
 void renovar_emprestimo(Emprestimo *emprestimos, int emprestimo_count) {
-    if (emprestimo.count >= 0 && emprestimo_count < emprestimo_count) {
-        emprestimos[emprestimo_count].data_devolucao += 604800;  // renova por mais 7 dias
+    if (emprestimo_count >= 0 && emprestimo_count < emprestimo_count) {
+        emprestimos[emprestimo_count].data_devolucao += 604800;  // Renew for an additional 7 days
     } else {
         printf("ID de empréstimo inválido.\n");
     }
@@ -94,8 +96,9 @@ void atualizar_emprestimo(Livro *livros, int livro_count, Emprestimo **emprestim
                     break;
                 }
             }
-            for (int j = i; j < *emprestimo_count - 1; j++) {
-                (*emprestimos)[j] = (*emprestimos)[j + 1];
+            // Remove the overdue loan from the array
+            for (int k = i; k < *emprestimo_count - 1; k++) {
+                (*emprestimos)[k] = (*emprestimos)[k + 1];
             }
             *emprestimos = realloc(*emprestimos, (*emprestimo_count - 1) * sizeof(Emprestimo));
             if (*emprestimos == NULL) {
@@ -105,7 +108,4 @@ void atualizar_emprestimo(Livro *livros, int livro_count, Emprestimo **emprestim
             (*emprestimo_count)--;
         }
     }
-}
-
-
-
+};
