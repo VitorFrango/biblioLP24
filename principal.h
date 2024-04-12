@@ -5,4 +5,6 @@
 #ifndef BIBLIOTECA_PRINCIPAL_H
 #define BIBLIOTECA_PRINCIPAL_H
 
+void inicializar_biblioteca(const char *filename, Livro **livros, int *count)
+
 #endif //BIBLIOTECA_PRINCIPAL_H

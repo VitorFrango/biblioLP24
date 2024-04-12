@@ -5,10 +5,11 @@
 #ifndef GESTAO_EMPRESTIMOS_H
 #define GESTAO_EMPRESTIMOS_H
 
-void inicializar_emprestimos(int tamanho);
+void inicializar_emprestimos(void empresta_livro(Livro *livro, int count, Emprestimo **emprestimos, int *emprestimo_count);
+void finalizar_emprestimo();
 void expandir_emprestimos();
 void registrar_emprestimo();
-void renovar_emprestimo(const char *titulo, const char *usuario);
-void devolver_livro(const char *titulo, const char *usuario);
+oid renovar_emprestimo(Emprestimo *emprestimos, int emprestimo_count)
+void devolver_livro(Livro *Livro, int count, Emprestimo **emprestimos, int *emprestimo_count)
 
 #endif
