@@ -31,12 +31,12 @@ typedef struct {
     time_t data_devolucao;
 } Emprestimo;
 
-void inicializar_emprestimos(void empresta_livro(Livro *livro, int count, Emprestimo **emprestimos, int *emprestimo_count);
+void empresta_livro(Livro *livros, int count, Emprestimo **emprestimos, int *emprestimo_count);
 void finalizar_emprestimo();
 void expandir_emprestimos();
 void atualizar_emprestimo(Livro *livros, int livro_count, Emprestimo **emprestimos, int *emprestimo_count);
-void renovar_emprestimo(Emprestimo *emprestimos, int emprestimo_count);
-void devolver_livro(Livro *Livro, int count, Emprestimo **emprestimos, int *emprestimo_count);
+void renovar_emprestimo(Emprestimo *emprestimos, int emprestimo_count, int emprestimo_id);
+void devolver_livro(Livro *livros, int count, Emprestimo **emprestimos, int *emprestimo_count);
 
 #endif
 // Path: gestao_emprestimos.c

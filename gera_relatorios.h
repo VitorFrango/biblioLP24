@@ -5,7 +5,8 @@
 #ifndef GERA_RELATORIOS_H
 #define GERA_RELATORIOS_H
 
-void relatorio_usuarios_com_mais_emprestimos(Livro *livros, int livro_count);
+
+
 void relatorio_livros_nao_devolvidos(Emprestimo *emprestimos, int emprestimo_count);
 void locatarios_com_mais_emprestimos(Emprestimo *emprestimos, int emprestimo_count);
 

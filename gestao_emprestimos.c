@@ -5,6 +5,7 @@
 #include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "gestao_livros.h"
 #include "principal.h"
@@ -19,32 +20,33 @@ typedef struct {
     time_t data_devolucao;
 } Emprestimo;
 
-void inicializar_emprestimos(void empresta_livro(Livro *livro, int count, Emprestimo **emprestimos, int *emprestimo_count) {
+void empresta_livro(Livro *livros, int count, Emprestimo **emprestimos, int *emprestimo_count) {
     int livro_id;
     printf("Digite o ID do livro a ser emprestado: ");
     scanf("%d", &livro_id);
-    getchar();  // Limpa buffer do stdin
+    getchar();  // Clear the stdin buffer
     if (livro_id < 0 || livro_id >= count) {
-        printf("ID de livro inválido.\n");
+        printf("ID de livro inválido.\\n");
         return;
     }
     if (livros[livro_id].copias <= 0) {
-        printf("Livro sem cópias disponíveis.\n");
+        printf("Livro sem cópias disponíveis.\\n");
         return;
     }
     livros[livro_id].copias--;
     *emprestimos = realloc(*emprestimos, (*emprestimo_count + 1) * sizeof(Emprestimo));
     if (*emprestimos == NULL) {
-        printf("Erro ao alocar memória para o empréstimo.\n");
-        exit(1);
+        fprintf(stderr, "Erro ao alocar memória para o empréstimo.\\n");
+        return;  // Avoid using exit(1); handle error gracefully
     }
     strcpy((*emprestimos)[*emprestimo_count].titulo, livros[livro_id].titulo);
     printf("Digite o nome do usuário: ");
     fgets((*emprestimos)[*emprestimo_count].usuario, MAX_USUARIO, stdin);
+    (*emprestimos)[*emprestimo_count].usuario[strcspn((*emprestimos)[*emprestimo_count].usuario, "\\n")] = '\\0';  // Remove newline
     time_t current_time;
     time(&current_time);
     (*emprestimos)[*emprestimo_count].data_emprestimo = current_time;
-    (*emprestimos)[*emprestimo_count].data_devolucao = current_time + 604800;  // 7 dias
+    (*emprestimos)[*emprestimo_count].data_devolucao = current_time + 604800;  // 7 days
     (*emprestimo_count)++;
 }
 
@@ -53,6 +55,7 @@ void devolver_livro(Livro *livros, int count, Emprestimo **emprestimos, int *emp
     char titulo[MAX_TITULO];
     printf("Digite o título do livro a ser devolvido: ");
     fgets(titulo, MAX_TITULO, stdin);
+    titulo[strcspn(titulo, "\\n")] = '\\0';  // Remove newline
     for (int i = 0; i < *emprestimo_count; i++) {
         if (strcmp((*emprestimos)[i].titulo, titulo) == 0) {
             for (int j = 0; j < count; j++) {
@@ -67,23 +70,25 @@ void devolver_livro(Livro *livros, int count, Emprestimo **emprestimos, int *emp
             }
             *emprestimos = realloc(*emprestimos, (*emprestimo_count - 1) * sizeof(Emprestimo));
             if (*emprestimos == NULL) {
-                printf("Erro ao alocar memória para o empréstimo.\n");
-                exit(1);
+                fprintf(stderr, "Erro ao alocar memória para ajustar o empréstimo.\\n");
+                return;  // Avoid using exit(1); handle error gracefully
             }
             (*emprestimo_count)--;
             return;
         }
     }
-    printf("Livro não encontrado.\n");
+    printf("Livro não encontrado.\\n");
 }
 
-void renovar_emprestimo(Emprestimo *emprestimos, int emprestimo_count) {
-    if (emprestimo_count >= 0 && emprestimo_count < emprestimo_count) {
-        emprestimos[emprestimo_count].data_devolucao += 604800;  // Renew for an additional 7 days
+
+void renovar_emprestimo(Emprestimo *emprestimos, int emprestimo_count, int emprestimo_id) {
+    if (emprestimo_id >= 0 && emprestimo_id < emprestimo_count) {
+        emprestimos[emprestimo_id].data_devolucao += 604800;  // Renew for an additional 7 days
     } else {
-        printf("ID de empréstimo inválido.\n");
+        printf("ID de empréstimo inválido.\\n");
     }
 }
+
 
 void atualizar_emprestimo(Livro *livros, int livro_count, Emprestimo **emprestimos, int *emprestimo_count) {
     time_t current_time;
