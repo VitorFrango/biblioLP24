@@ -8,14 +8,14 @@
 
 #include "gestao_emprestimos.h"
 
-void carregar_livros_csv(const char *nome_arquivo) {
-    FILE *arquivo = fopen(livros.csv, "r");
+void carregar_livros_csv(const char *livros_csv) {
+    FILE *arquivo = fopen(livros_csv, "r");
     if (arquivo == NULL) {
-        printf("Erro ao abrir o arquivo %s\n", nome_arquivo);
+        printf("Erro ao abrir o arquivo %s\n", livros_csv);
         exit(1);
     }
 };
 
-void salvar_livros_csv(const char *nome_arquivo);
+//void salvar_livros_csv(const char *nome_arquivo);
 
-void salvar_emprestimos_csv(const char *nome_arquivo);
+//void salvar_emprestimos_csv(const char *nome_arquivo);

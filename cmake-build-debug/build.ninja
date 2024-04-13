@@ -49,20 +49,20 @@ cmake_ninja_workdir = /Users/vitorfrango/Library/CloudStorage/OneDrive-Universid
 
 build cmake_object_order_depends_target_biblioteca: phony || CMakeFiles/biblioteca.dir
 
-build CMakeFiles/biblioteca.dir/main.c.o: C_COMPILER__biblioteca_unscanned_Debug /Users/vitorfrango/Library/CloudStorage/OneDrive-UniversidadeAberta/1$ Ano/Laboratorio$ de$ Programação/biblioteca/main.c || cmake_object_order_depends_target_biblioteca
-  DEP_FILE = CMakeFiles/biblioteca.dir/main.c.o.d
-  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
-  OBJECT_DIR = CMakeFiles/biblioteca.dir
-  OBJECT_FILE_DIR = CMakeFiles/biblioteca.dir
-
-build CMakeFiles/biblioteca.dir/gera_relatorios.c.o: C_COMPILER__biblioteca_unscanned_Debug /Users/vitorfrango/Library/CloudStorage/OneDrive-UniversidadeAberta/1$ Ano/Laboratorio$ de$ Programação/biblioteca/gera_relatorios.c || cmake_object_order_depends_target_biblioteca
-  DEP_FILE = CMakeFiles/biblioteca.dir/gera_relatorios.c.o.d
+build CMakeFiles/biblioteca.dir/principal.c.o: C_COMPILER__biblioteca_unscanned_Debug /Users/vitorfrango/Library/CloudStorage/OneDrive-UniversidadeAberta/1$ Ano/Laboratorio$ de$ Programação/biblioteca/principal.c || cmake_object_order_depends_target_biblioteca
+  DEP_FILE = CMakeFiles/biblioteca.dir/principal.c.o.d
   FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
   OBJECT_DIR = CMakeFiles/biblioteca.dir
   OBJECT_FILE_DIR = CMakeFiles/biblioteca.dir
 
 build CMakeFiles/biblioteca.dir/gestao_emprestimos.c.o: C_COMPILER__biblioteca_unscanned_Debug /Users/vitorfrango/Library/CloudStorage/OneDrive-UniversidadeAberta/1$ Ano/Laboratorio$ de$ Programação/biblioteca/gestao_emprestimos.c || cmake_object_order_depends_target_biblioteca
   DEP_FILE = CMakeFiles/biblioteca.dir/gestao_emprestimos.c.o.d
+  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  OBJECT_DIR = CMakeFiles/biblioteca.dir
+  OBJECT_FILE_DIR = CMakeFiles/biblioteca.dir
+
+build CMakeFiles/biblioteca.dir/gera_relatorios.c.o: C_COMPILER__biblioteca_unscanned_Debug /Users/vitorfrango/Library/CloudStorage/OneDrive-UniversidadeAberta/1$ Ano/Laboratorio$ de$ Programação/biblioteca/gera_relatorios.c || cmake_object_order_depends_target_biblioteca
+  DEP_FILE = CMakeFiles/biblioteca.dir/gera_relatorios.c.o.d
   FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
   OBJECT_DIR = CMakeFiles/biblioteca.dir
   OBJECT_FILE_DIR = CMakeFiles/biblioteca.dir
@@ -79,12 +79,6 @@ build CMakeFiles/biblioteca.dir/gestao_livros.c.o: C_COMPILER__biblioteca_unscan
   OBJECT_DIR = CMakeFiles/biblioteca.dir
   OBJECT_FILE_DIR = CMakeFiles/biblioteca.dir
 
-build CMakeFiles/biblioteca.dir/principal.c.o: C_COMPILER__biblioteca_unscanned_Debug /Users/vitorfrango/Library/CloudStorage/OneDrive-UniversidadeAberta/1$ Ano/Laboratorio$ de$ Programação/biblioteca/principal.c || cmake_object_order_depends_target_biblioteca
-  DEP_FILE = CMakeFiles/biblioteca.dir/principal.c.o.d
-  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
-  OBJECT_DIR = CMakeFiles/biblioteca.dir
-  OBJECT_FILE_DIR = CMakeFiles/biblioteca.dir
-
 
 # =============================================================================
 # Link build statements for EXECUTABLE target biblioteca
@@ -93,7 +87,7 @@ build CMakeFiles/biblioteca.dir/principal.c.o: C_COMPILER__biblioteca_unscanned_
 #############################################
 # Link the executable biblioteca
 
-build biblioteca: C_EXECUTABLE_LINKER__biblioteca_Debug CMakeFiles/biblioteca.dir/main.c.o CMakeFiles/biblioteca.dir/gera_relatorios.c.o CMakeFiles/biblioteca.dir/gestao_emprestimos.c.o CMakeFiles/biblioteca.dir/io_dados.c.o CMakeFiles/biblioteca.dir/gestao_livros.c.o CMakeFiles/biblioteca.dir/principal.c.o
+build biblioteca: C_EXECUTABLE_LINKER__biblioteca_Debug CMakeFiles/biblioteca.dir/principal.c.o CMakeFiles/biblioteca.dir/gestao_emprestimos.c.o CMakeFiles/biblioteca.dir/gera_relatorios.c.o CMakeFiles/biblioteca.dir/io_dados.c.o CMakeFiles/biblioteca.dir/gestao_livros.c.o
   FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk
   OBJECT_DIR = CMakeFiles/biblioteca.dir
   POST_BUILD = :

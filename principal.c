@@ -5,36 +5,42 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
-#include "gera_relatorios.h"
-#include "gestao_emprestimos.h"
-#include "gestao_livros.h"
-#include "io_dados.h"
 #include "principal.h"
 
-#define MAX_TITULO 100
-#define MAX_AUTOR 100
-#define MAX_GENERO 50
-
-typedef struct {
-    char titulo[MAX_TITULO];
-    char autor[MAX_AUTOR];
-    char genero[MAX_GENERO];
-    int copias;
-} Livro;
 
 
 int main() {
-    Livro *livros = NULL;
-    int livro_count = 0;
-    Emprestimo *emprestimos = NULL;
-    int emprestimo_count = 0;
+    char cwd[1024];
+    if (getcwd(cwd, sizeof(cwd)) != NULL) {
+        printf("Diretório atual: %s\n", cwd);
+    } else {
+        perror("getcwd() error");
+        return 1;
+    }
 
-    inicializar_biblioteca("livros.csv", &livros, &livro_count);
+    FILE *file = fopen("livros.csv", "r");
+    if (file == NULL) {
+        perror("Erro ao abrir o arquivo");
+        return 1;
+    }
+
+    inicializar_biblioteca("livros.csv", & livros, &livro_count);
 
     int choice;
     do {
-        printf("1. Adicionar Livro\n2. Listar Livros\n3. Emprestar Livro\n4. Devolver Livro\n5. Renovar Empréstimo\n6. Relatório de Livros Mais Emprestados\n7. Relatório de Livros Não Devolvidos\n8. Relatório de Maiores Locatários\n9. Salvar Alterações\n0. Sair e Salvar\nEscolha uma opção: ");
+        printf("1. Adicionar Livro\n"
+               "2. Listar Livros\n"
+               "3. Emprestar Livro\n"
+               "4. Devolver Livro\n"
+               "5. Renovar Empréstimo\n"
+               "6. Relatório de Livros Mais Emprestados\n"
+               "7. Relatório de Livros Não Devolvidos\n"
+               "8. Relatório de Maiores Locatários\n"
+               "9. Salvar Alterações\n"
+               "0. Sair e Salvar\nEscolha uma opção: ");
+
         scanf("%d", &choice);
         getchar();  // Limpa buffer do stdin
 
@@ -73,8 +79,8 @@ int main() {
                 printf("Dados salvos com sucesso!\n");
                 break;
             case 0:
-                savelivrosToFile("livros.csv", livros, livro_count);
-                saveLoansToFile("loans.csv", emprestikmos, emprestimo_count, livros);
+                guardar_livros("livros.csv", livros, livro_count);
+                guardar_emprestimo("emprestimos.csv", emprestimos, emprestimo_count);
                 printf("Saindo e salvando dados...\n");
                 break;
             default:
@@ -84,5 +90,7 @@ int main() {
 
     free(livros);
     free(emprestimos);
+
+    fclose(file);
     return 0;
 }

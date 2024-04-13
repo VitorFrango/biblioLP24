@@ -7,18 +7,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "gestao_livros.h"
-#include "principal.h"
-#include "gera_relatorios.h"
-#include "io_dados.h"
 #include "gestao_emprestimos.h"
-
-typedef struct {
-    char titulo[MAX_TITULO];
-    char usuario[MAX_USUARIO];
-    time_t data_emprestimo;
-    time_t data_devolucao;
-} Emprestimo;
 
 void empresta_livro(Livro *livros, int count, Emprestimo **emprestimos, int *emprestimo_count) {
     int livro_id;
@@ -41,21 +30,21 @@ void empresta_livro(Livro *livros, int count, Emprestimo **emprestimos, int *emp
     }
     strcpy((*emprestimos)[*emprestimo_count].titulo, livros[livro_id].titulo);
     printf("Digite o nome do usuário: ");
-    fgets((*emprestimos)[*emprestimo_count].usuario, MAX_USUARIO, stdin);
-    (*emprestimos)[*emprestimo_count].usuario[strcspn((*emprestimos)[*emprestimo_count].usuario, "\\n")] = '\\0';  // Remove newline
+    fgets((*emprestimos)[*emprestimo_count].user, MAX_UTILIZADOR, stdin);
+    (*emprestimos)[*emprestimo_count].user[strcspn((*emprestimos)[*emprestimo_count].user, "\\n")] = '\0';  // Remove newline
     time_t current_time;
     time(&current_time);
     (*emprestimos)[*emprestimo_count].data_emprestimo = current_time;
     (*emprestimos)[*emprestimo_count].data_devolucao = current_time + 604800;  // 7 days
     (*emprestimo_count)++;
-}
+};
 
 
 void devolver_livro(Livro *livros, int count, Emprestimo **emprestimos, int *emprestimo_count) {
     char titulo[MAX_TITULO];
     printf("Digite o título do livro a ser devolvido: ");
     fgets(titulo, MAX_TITULO, stdin);
-    titulo[strcspn(titulo, "\\n")] = '\\0';  // Remove newline
+    titulo[strcspn(titulo, "\\n")] = '\0';  // Remove newline
     for (int i = 0; i < *emprestimo_count; i++) {
         if (strcmp((*emprestimos)[i].titulo, titulo) == 0) {
             for (int j = 0; j < count; j++) {
@@ -64,21 +53,21 @@ void devolver_livro(Livro *livros, int count, Emprestimo **emprestimos, int *emp
                     break;
                 }
             }
-            // Remove the returned loan from the array
+            // Remove the returned emprestimo from the array
             for (int k = i; k < *emprestimo_count - 1; k++) {
                 (*emprestimos)[k] = (*emprestimos)[k + 1];
             }
             *emprestimos = realloc(*emprestimos, (*emprestimo_count - 1) * sizeof(Emprestimo));
             if (*emprestimos == NULL) {
                 fprintf(stderr, "Erro ao alocar memória para ajustar o empréstimo.\\n");
-                return;  // Avoid using exit(1); handle error gracefully
+                return;  // evitar usar exit(1); tratar o erro de forma graciosa
             }
             (*emprestimo_count)--;
             return;
         }
     }
     printf("Livro não encontrado.\\n");
-}
+};
 
 
 void renovar_emprestimo(Emprestimo *emprestimos, int emprestimo_count, int emprestimo_id) {
@@ -87,7 +76,7 @@ void renovar_emprestimo(Emprestimo *emprestimos, int emprestimo_count, int empre
     } else {
         printf("ID de empréstimo inválido.\\n");
     }
-}
+};
 
 
 void atualizar_emprestimo(Livro *livros, int livro_count, Emprestimo **emprestimos, int *emprestimo_count) {
@@ -101,7 +90,7 @@ void atualizar_emprestimo(Livro *livros, int livro_count, Emprestimo **emprestim
                     break;
                 }
             }
-            // Remove the overdue loan from the array
+            // Remove the overdue emprestimo from the array
             for (int k = i; k < *emprestimo_count - 1; k++) {
                 (*emprestimos)[k] = (*emprestimos)[k + 1];
             }
@@ -113,4 +102,21 @@ void atualizar_emprestimo(Livro *livros, int livro_count, Emprestimo **emprestim
             (*emprestimo_count)--;
         }
     }
+};
+
+void guardar_emprestimo(const char *filename, Emprestimo *emprestimos, int emprestimo_count) {
+    FILE *file = fopen(filename, "w");
+    if (file == NULL) {
+        fprintf(stderr, "Erro ao abrir o arquivo %s.\\n", filename);
+        return;  // Handling file opening error gracefully
+    }
+    for (int i = 0; i < emprestimo_count; i++) {
+        fprintf(file, "%s,%s,%ld,%ld\\n",
+                emprestimos[i].titulo,
+                emprestimos[i].user,
+                emprestimos[i].data_emprestimo,
+                emprestimos[i].data_devolucao);
+    }
+
+    fclose(file);
 };

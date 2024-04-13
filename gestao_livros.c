@@ -5,43 +5,29 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
+
+#define MAX_LINHA_TAM 100
 
 #include "gestao_livros.h"
 
-#define MAX_LINHA_TAM 300
-
-// Define Livro struct
-typedef struct {
-    char titulo[100];
-    char autor[100];
-    char genero[100];
-    int copias;
-} Livro;
-
-// Define the Emprestimo struct
-typedef struct {
-    char titulo[100];
-    char locatario[100];
-    time_t data_emprestimo;
-    time_t data_devolucao;
-} Emprestimo;
 
 void inicializar_biblioteca(const char *filename, Livro **livros, int *count){
     FILE *file = fopen(filename, "r");
     if (file == NULL) {
-        fprintf(stderr, "Erro ao abrir o arquivo %s.\\n", filename);
-        return;  // Opting to return instead of exit
+        fprintf(stderr, "Erro ao abrir o arquivo %s.\n", filename);
+        return;
     }
     char linha[MAX_LINHA_TAM];
     *count = 0;
     while (fgets(linha, MAX_LINHA_TAM, file) != NULL) {
         *livros = realloc(*livros, (*count + 1) * sizeof(Livro));
         if (*livros == NULL) {
-            fprintf(stderr, "Erro ao alocar memória para o livro.\\n");
+            fprintf(stderr, "Erro ao alocar memória para o livro.\n");
             fclose(file);
-            return;  // Opting to return and clean up
+            return;
         }
-        sscanf(linha, "%[^,],%[^,],%[^,],%d\\n",
+        sscanf(linha, "%[^,],%[^,],%[^,],%d\n",
                (*livros)[*count].titulo,
                (*livros)[*count].autor,
                (*livros)[*count].genero,
@@ -54,18 +40,18 @@ void inicializar_biblioteca(const char *filename, Livro **livros, int *count){
 void adicionar_livro(Livro **livros, int *count){
     *livros = realloc(*livros, (*count + 1) * sizeof(Livro));
     if (*livros == NULL) {
-        fprintf(stderr, "Erro ao alocar memória para o livro.\\n");
-        return;  // Avoid using exit(1); handle error gracefully
+        fprintf(stderr, "Erro ao alocar memória para o livro.\n");
+        return;
     }
     printf("Digite o título do livro: ");
     fgets((*livros)[*count].titulo, MAX_TITULO, stdin);
-    (*livros)[*count].titulo[strcspn((*livros)[*count].titulo, "\\n")] = '\\0';  // Remove newline
+    (*livros)[*count].titulo[strcspn((*livros)[*count].titulo, "\n")] = '\0';
     printf("Digite o autor do livro: ");
     fgets((*livros)[*count].autor, MAX_AUTOR, stdin);
-    (*livros)[*count].autor[strcspn((*livros)[*count].autor, "\\n")] = '\\0';  // Remove newline
+    (*livros)[*count].autor[strcspn((*livros)[*count].autor, "\n")] = '\0';
     printf("Digite o gênero do livro: ");
     fgets((*livros)[*count].genero, MAX_GENERO, stdin);
-    (*livros)[*count].genero[strcspn((*livros)[*count].genero, "\\n")] = '\\0';  // Remove newline
+    (*livros)[*count].genero[strcspn((*livros)[*count].genero, "\n")] = '\0';
     printf("Digite o número de cópias do livro: ");
     scanf("%d", &(*livros)[*count].copias);
     getchar();  // Clear stdin buffer
@@ -101,7 +87,8 @@ void guardar_livros(const char *filename, Livro *livros, int count){
 }
 
 
-void remover_livro(Livro **livros, int *count, const char *titulo){
+void remover_livro(Livro **livros, int *count, const char *titulo) {
+
     int i;
     for (i = 0; i < *count; i++) {
         if (strcmp((*livros)[i].titulo, titulo) == 0) {
@@ -129,13 +116,13 @@ void editar_livro(Livro *livros, int count, const char *titulo){
             printf("Editando livro: %s\\n", titulo);
             printf("Novo título: ");
             fgets(livros[i].titulo, MAX_TITULO, stdin);
-            livros[i].titulo[strcspn(livros[i].titulo, "\\n")] = '\\0';
+            livros[i].titulo[strcspn(livros[i].titulo, "\\n")] = '\0';
             printf("Novo autor: ");
             fgets(livros[i].autor, MAX_AUTOR, stdin);
-            livros[i].autor[strcspn(livros[i].autor, "\\n")] = '\\0';
+            livros[i].autor[strcspn(livros[i].autor, "\\n")] = '\0';
             printf("Novo gênero: ");
             fgets(livros[i].genero, MAX_GENERO, stdin);
-            livros[i].genero[strcspn(livros[i].genero, "\\n")] = '\\0';
+            livros[i].genero[strcspn(livros[i].genero, "\\n")] = '\0';
             printf("Nova quantidade de cópias: ");
             scanf("%d", &livros[i].copias);
             getchar();  // Clear stdin buffer
@@ -144,5 +131,4 @@ void editar_livro(Livro *livros, int count, const char *titulo){
     }
     printf("Livro não encontrado.\\n");
 }
-
 
