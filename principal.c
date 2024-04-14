@@ -4,29 +4,24 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
 
 #include "principal.h"
 
 
 
 int main() {
-    char cwd[1024];
-    if (getcwd(cwd, sizeof(cwd)) != NULL) {
-        printf("Diretório atual: %s\n", cwd);
-    } else {
-        perror("getcwd() error");
-        return 1;
-    }
+    Livro *livros = NULL;
+    int livro_count = 0;
+    Emprestimo *emprestimos = NULL;
+    int emprestimo_count = 0;
 
-    FILE *file = fopen("livros.csv", "r");
+    FILE *file = fopen("livros.csv", "r"); // Tenta abrir o arquivo para leitura
     if (file == NULL) {
         perror("Erro ao abrir o arquivo");
-        return 1;
+        return 1; // Retorna código de erro
     }
 
-    inicializar_biblioteca("livros.csv", & livros, &livro_count);
+    inicializar_biblioteca("livros.csv", &livros, &livro_count);
 
     int choice;
     do {
