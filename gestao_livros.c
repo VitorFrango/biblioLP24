@@ -33,6 +33,31 @@ void inicializar_biblioteca(const char *filename, Livro **livros, int *count){
     fclose(file);
 }
 
+void adicionar_livro(Livro **livros, int *count){
+    Livro *temp = realloc(*livros, (*count + 1) * sizeof(Livro));
+    if (temp == NULL) {
+        fprintf(stderr, "Erro ao alocar memória para o livro.\n");
+        return; // Exiting function without changing *livros or *count
+    }
+    *livros = temp; // Use temp, now that we know it's not NULL
+    printf("Digite o título do livro: ");
+    fgets((*livros)[*count].titulo, MAX_TITULO, stdin);
+    (*livros)[*count].titulo[strcspn((*livros)[*count].titulo, "\n")] = '\0';
+    printf("Digite o autor do livro: ");
+    fgets((*livros)[*count].autor, MAX_AUTOR, stdin);
+    (*livros)[*count].autor[strcspn((*livros)[*count].autor, "\n")] = '\0';
+    printf("Digite o gênero do livro: ");
+    fgets((*livros)[*count].genero, MAX_GENERO, stdin);
+    (*livros)[*count].genero[strcspn((*livros)[*count].genero, "\n")] = '\0';
+    printf("Digite o número de cópias do livro: ");
+    scanf("%d", &(*livros)[*count].copias);
+    getchar();  // Clear stdin buffer
+    (*count)++;
+
+    // Save the updated library to the file
+    guardar_livros("livros.csv", *livros, *count);
+}
+
 void pesquisar_livros(const char *filename) {
     FILE *file = fopen(filename, "r");
     if (file == NULL) {
@@ -57,29 +82,7 @@ void pesquisar_livros(const char *filename) {
 }
 
 
-void adicionar_livro(Livro **livros, int *count){
-    *livros = realloc(*livros, (*count + 1) * sizeof(Livro));
-    if (*livros == NULL) {
-        fprintf(stderr, "Erro ao alocar memória para o livro.\n");
-        return;
-    }
-    printf("Digite o título do livro: ");
-    fgets((*livros)[*count].titulo, MAX_TITULO, stdin);
-    (*livros)[*count].titulo[strcspn((*livros)[*count].titulo, "\n")] = '\0';
-    printf("Digite o autor do livro: ");
-    fgets((*livros)[*count].autor, MAX_AUTOR, stdin);
-    (*livros)[*count].autor[strcspn((*livros)[*count].autor, "\n")] = '\0';
-    printf("Digite o gênero do livro: ");
-    fgets((*livros)[*count].genero, MAX_GENERO, stdin);
-    (*livros)[*count].genero[strcspn((*livros)[*count].genero, "\n")] = '\0';
-    printf("Digite o número de cópias do livro: ");
-    scanf("%d", &(*livros)[*count].copias);
-    getchar();  // Clear stdin buffer
-    (*count)++;
 
-    // Save the updated library to the file
-    guardar_livros("livros.csv", *livros, *count);
-}
 
 void guardar_livros(const char *filename, Livro *livros, int count) {
     FILE *file = fopen(filename, "w");
