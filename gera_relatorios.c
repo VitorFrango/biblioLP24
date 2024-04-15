@@ -43,3 +43,31 @@ void locatarios_com_mais_emprestimos(Emprestimo *emprestimos, int emprestimo_cou
     }
     free(counts); // Liberação de memória
 }
+
+void livros_mais_emprestados(Emprestimo *emprestimos, int emprestimo_count){
+    UserCount *counts = NULL;
+    int num_livros = 0;
+    for(int i = 0; i < emprestimo_count; i++) {
+        int found = 0;
+        for(int j = 0; j < num_livros; j++) {
+            if(strcmp(emprestimos[i].titulo, counts[j].nome) == 0) {
+                counts[j].count++;
+                found = 1;
+                break;
+            }
+        }
+        if(!found) {
+            counts = (UserCount *) realloc(counts, (num_livros + 1) * sizeof(UserCount));
+            strcpy(counts[num_livros].nome, emprestimos[i].titulo);
+            counts[num_livros].count = 1;
+            num_livros++;
+        }
+    }
+    for(int i = 0; i < num_livros; i++) {
+        printf("Livro: %s\\n", counts[i].nome);
+        printf("Quantidade de emprestimos: %d\\n", counts[i].count);
+    }
+    free(counts); // Liberação de memória
+}
+
+

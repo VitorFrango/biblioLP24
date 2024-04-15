@@ -23,7 +23,7 @@ int main() {
 
 
 
-        int choice;
+   int choice;
     do {
         printf("1. Adicionar Livro\n"
                "2. Listar Livros\n"
@@ -57,12 +57,16 @@ int main() {
                 renovar_emprestimo(emprestimos, emprestimo_count);;
                 break;
             case 6:
+                livros_mais_emprestados(emprestimos, emprestimo_count);
+
 
                 break;
             case 7:
+                relatorio_livros_nao_devolvidos(emprestimos, emprestimo_count);
 
                 break;
             case 8:
+                locatarios_com_mais_emprestimos(emprestimos, emprestimo_count);
 
                 break;
             case 9:

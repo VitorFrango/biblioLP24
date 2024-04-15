@@ -1,4 +1,3 @@
-//
 // Created by Vitor Frango on 12/04/2024.
 // Funções para gerir livros.
 
@@ -7,13 +6,10 @@
 #include <string.h>
 #include <time.h>
 
-
-
 #include "gestao_livros.h"
 
-
 void inicializar_biblioteca(const char *filename, Livro **livros, int *count){
-    FILE *file = fopen("livros.csv", "r");
+    FILE *file = fopen(filename, "r");
     if (file == NULL) {
         fprintf(stderr, "Erro ao abrir o arquivo %s.\n", filename);
         return;
@@ -36,6 +32,30 @@ void inicializar_biblioteca(const char *filename, Livro **livros, int *count){
     }
     fclose(file);
 }
+
+void pesquisar_livros(const char *filename) {
+    FILE *file = fopen(filename, "r");
+    if (file == NULL) {
+        perror("Erro ao abrir o arquivo para leitura");
+        return;
+    }
+    char linha[MAX_LINHA_TAM];
+    while (fgets(linha, MAX_LINHA_TAM, file) != NULL) {
+        char titulo[MAX_TITULO];
+        char autor[MAX_AUTOR];
+        char genero[MAX_GENERO];
+        int copias;
+        sscanf(linha, "%[^,],%[^,],%[^,],%d\n", titulo, autor, genero, &copias);
+        printf("Título: %s\n", titulo);
+        printf("Autor: %s\n", autor);
+        printf("Gênero: %s\n", genero);
+        printf("Cópias: %d\n", copias);
+    }
+    if (fclose(file) != 0) {
+        perror("Erro ao fechar o arquivo");
+    }
+}
+
 
 void adicionar_livro(Livro **livros, int *count){
     *livros = realloc(*livros, (*count + 1) * sizeof(Livro));
@@ -61,32 +81,10 @@ void adicionar_livro(Livro **livros, int *count){
     guardar_livros("livros.csv", *livros, *count);
 }
 
-
-void pesquisar_livros(const char *filename){
-    FILE *file = fopen("livros.csv", "r");
-    if (file == NULL) {
-        fprintf(stderr, "Erro ao abrir o arquivo %s.\n", "livros.csv");
-        return;
-    }
-    char linha[MAX_LINHA_TAM];
-    Livro livro;
-    while (fgets(linha, MAX_LINHA_TAM, file) != NULL) {
-        sscanf(linha, "%[^,],%[^,],%[^,],%d\n",
-               livro.titulo,
-               livro.autor,
-               livro.genero,
-               &livro.copias);
-        printf("Título: %s\nAutor: %s\nGênero: %s\nCópias: %d\n\n",
-               livro.titulo, livro.autor, livro.genero, livro.copias);
-    }
-    fclose(file);
-}
-
-
 void guardar_livros(const char *filename, Livro *livros, int count) {
     FILE *file = fopen(filename, "w");
     if (file == NULL) {
-        perror("Erro ao abrir o arquivo para escrita");  // Usando perror para detalhar o erro
+        perror("Erro ao abrir o arquivo para escrita");
         return;
     }
     for (int i = 0; i < count; i++) {
@@ -95,19 +93,16 @@ void guardar_livros(const char *filename, Livro *livros, int count) {
                     livros[i].autor,
                     livros[i].genero,
                     livros[i].copias) < 0) {
-            perror("Erro ao escrever no arquivo");  // Verifica erro na escrita
+            perror("Erro ao escrever no arquivo");
             break;
         }
     }
     if (fclose(file) != 0) {
-        perror("Erro ao fechar o arquivo");  // Verifica erro ao fechar o arquivo
+        perror("Erro ao fechar o arquivo");
     }
 }
 
-
-
 void remover_livro(Livro **livros, int *count, const char *titulo) {
-
     int i;
     for (i = 0; i < *count; i++) {
         if (strcmp((*livros)[i].titulo, titulo) == 0) {
@@ -115,7 +110,7 @@ void remover_livro(Livro **livros, int *count, const char *titulo) {
         }
     }
     if (i == *count) {
-        printf("Livro não encontrado.\\n");
+        printf("Livro não encontrado.\n");
         return;
     }
     for (; i < *count - 1; i++) {
@@ -123,11 +118,12 @@ void remover_livro(Livro **livros, int *count, const char *titulo) {
     }
     *livros = realloc(*livros, (*count - 1) * sizeof(Livro));
     if (*livros == NULL && *count > 1) {
-        fprintf(stderr, "Erro ao realocar memória.\\n");
-        return;  // Handle error in reallocation
+        fprintf(stderr, "Erro ao realocar memória.\n");
+        return;
     }
     (*count)--;
 }
+
 
 void editar_livro(Livro *livros, int count, const char *titulo){
     for (int i = 0; i < count; i++) {
