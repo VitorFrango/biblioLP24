@@ -7,13 +7,13 @@
 #include <string.h>
 #include <time.h>
 
-#define MAX_LINHA_TAM 100
+
 
 #include "gestao_livros.h"
 
 
 void inicializar_biblioteca(const char *filename, Livro **livros, int *count){
-    FILE *file = fopen("livros,csv", "r");
+    FILE *file = fopen("livros.csv", "r");
     if (file == NULL) {
         fprintf(stderr, "Erro ao abrir o arquivo %s.\n", filename);
         return;
@@ -62,29 +62,48 @@ void adicionar_livro(Livro **livros, int *count){
 }
 
 
-void pesquisar_livros(Livro *livros, int count){
-    for (int i = 0; i < count; i++) {
-        printf("Título: %s\nAutor: %s\nGênero: %s\nCópias: %d\n\n",
-               livros[i].titulo, livros[i].autor, livros[i].genero, livros[i].copias);
-    }
-}
-
-
-void guardar_livros(const char *filename, Livro *livros, int count){
-    FILE *file = fopen(filename, "w");
+void pesquisar_livros(const char *filename){
+    FILE *file = fopen("livros.csv", "r");
     if (file == NULL) {
-        fprintf(stderr, "Erro ao abrir o arquivo %s.\\n", filename);
-        return;  // Handling file opening error gracefully
+        fprintf(stderr, "Erro ao abrir o arquivo %s.\n", "livros.csv");
+        return;
     }
-    for (int i = 0; i < count; i++) {
-        fprintf(file, "%s,%s,%s,%d\\n",
-                livros[i].titulo,
-                livros[i].autor,
-                livros[i].genero,
-                livros[i].copias);
+    char linha[MAX_LINHA_TAM];
+    Livro livro;
+    while (fgets(linha, MAX_LINHA_TAM, file) != NULL) {
+        sscanf(linha, "%[^,],%[^,],%[^,],%d\n",
+               livro.titulo,
+               livro.autor,
+               livro.genero,
+               &livro.copias);
+        printf("Título: %s\nAutor: %s\nGênero: %s\nCópias: %d\n\n",
+               livro.titulo, livro.autor, livro.genero, livro.copias);
     }
     fclose(file);
 }
+
+
+void guardar_livros(const char *filename, Livro *livros, int count) {
+    FILE *file = fopen(filename, "w");
+    if (file == NULL) {
+        perror("Erro ao abrir o arquivo para escrita");  // Usando perror para detalhar o erro
+        return;
+    }
+    for (int i = 0; i < count; i++) {
+        if (fprintf(file, "%s,%s,%s,%d\n",
+                    livros[i].titulo,
+                    livros[i].autor,
+                    livros[i].genero,
+                    livros[i].copias) < 0) {
+            perror("Erro ao escrever no arquivo");  // Verifica erro na escrita
+            break;
+        }
+    }
+    if (fclose(file) != 0) {
+        perror("Erro ao fechar o arquivo");  // Verifica erro ao fechar o arquivo
+    }
+}
+
 
 
 void remover_livro(Livro **livros, int *count, const char *titulo) {

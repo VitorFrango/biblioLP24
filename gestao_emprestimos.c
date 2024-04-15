@@ -70,11 +70,16 @@ void devolver_livro(Livro *livros, int count, Emprestimo **emprestimos, int *emp
 };
 
 
-void renovar_emprestimo(Emprestimo *emprestimos, int emprestimo_count, int emprestimo_id) {
+void renovar_emprestimo(Emprestimo *emprestimos, int emprestimo_count) {
+    int emprestimo_id;
+    printf("Digite o ID do empréstimo a ser renovado: ");
+    scanf("%d", &emprestimo_id);
+    getchar();  // Clear the stdin buffer
+
     if (emprestimo_id >= 0 && emprestimo_id < emprestimo_count) {
-        emprestimos[emprestimo_id].data_devolucao += 604800;  // Renew for an additional 7 days
+        emprestimos[emprestimo_id].data_devolucao += 604800;  // renova por mais 7 dias
     } else {
-        printf("ID de empréstimo inválido.\\n");
+        printf("ID de empréstimo inválido.\n");
     }
 };
 

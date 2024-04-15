@@ -4,7 +4,7 @@
 #ifndef GESTAO_LIVROS_H
 #define GESTAO_LIVROS_H
 
-
+#define MAX_LINHA_TAM 100
 #define MAX_TITULO 100
 #define MAX_AUTOR 50
 #define MAX_GENERO 30
@@ -17,7 +17,8 @@ typedef struct {
     int copias;
 } Livro;
 
-void pesquisar_livros(Livro *livros, int count);
+
+void pesquisar_livros(const char *filename);
 void guardar_livros(const char *filename, Livro *livros, int count);
 void remover_livro(Livro **livros, int *count, const char *titulo);
 void editar_livro(Livro *livros, int count, const char *titulo);

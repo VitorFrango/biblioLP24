@@ -35,7 +35,7 @@ typedef struct {
 void empresta_livro(Livro *livros, int count, Emprestimo **emprestimos, int *emprestimo_count);
 void guardar_emprestimo(const char *filename, Emprestimo *emprestimos, int emprestimo_count);
 void atualizar_emprestimo(Livro *livros, int livro_count, Emprestimo **emprestimos, int *emprestimo_count);
-void renovar_emprestimo(Emprestimo *emprestimos, int emprestimo_count, int emprestimo_id);
+void renovar_emprestimo(Emprestimo *emprestimos, int emprestimo_count);
 void devolver_livro(Livro *livros, int count, Emprestimo **emprestimos, int *emprestimo_count);
 
 #endif

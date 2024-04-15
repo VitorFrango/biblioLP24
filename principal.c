@@ -11,14 +11,15 @@
 
 
 int main() {
-        Livro *livros;
-        livros = NULL;
-        int livro_count = 0;
-        Emprestimo *emprestimos = NULL;
-        int emprestimo_count = 0;
+        Livro *livros; // Ponteiro para array de livros
+        livros = NULL; // Inicializa ponteiro com NULL
+        int livro_count = 0; // Contador de livros
+        Emprestimo *emprestimos = NULL; // Ponteiro para array de empréstimos
+        int emprestimo_count = 0; // Contador de empréstimos
 
+    // Inicializa a biblioteca com os dados do arquivo livros.csv
    inicializar_biblioteca("livros.csv", &livros, &livro_count);
-   char termo_pesquisa[MAX_TITULO];  // Assuming MAX_TITULO is the maximum length of your search term
+
 
 
 
@@ -43,22 +44,17 @@ int main() {
                 adicionar_livro(&livros, &livro_count);
                 break;
             case 2:
-                pesquisar_livros(livros, livro_count);
+                pesquisar_livros("livros.csv");
                 break;
             case 3:
                 empresta_livro(livros, livro_count, &emprestimos, &emprestimo_count);
 
                 break;
             case 4:
-                printf("Digite o ID do empréstimo para devolução: ");
-                int loan_id;
-                scanf("%d", &loan_id);
-
+                devolver_livro(livros, livro_count, &emprestimos, &emprestimo_count);
                 break;
             case 5:
-                printf("Digite o ID do empréstimo para renovação: ");
-                scanf("%d", &loan_id);
-
+                renovar_emprestimo(emprestimos, emprestimo_count);;
                 break;
             case 6:
 
