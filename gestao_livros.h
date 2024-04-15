@@ -17,7 +17,7 @@ typedef struct {
     int copias;
 } Livro;
 
-void pesquisar_livros(Livro *livros, int count, const char *termo_pesquisa);
+void pesquisar_livros(Livro *livros, int count);
 void guardar_livros(const char *filename, Livro *livros, int count);
 void remover_livro(Livro **livros, int *count, const char *titulo);
 void editar_livro(Livro *livros, int count, const char *titulo);

@@ -13,7 +13,7 @@
 
 
 void inicializar_biblioteca(const char *filename, Livro **livros, int *count){
-    FILE *file = fopen(filename, "r");
+    FILE *file = fopen("livros,csv", "r");
     if (file == NULL) {
         fprintf(stderr, "Erro ao abrir o arquivo %s.\n", filename);
         return;
@@ -56,19 +56,19 @@ void adicionar_livro(Livro **livros, int *count){
     scanf("%d", &(*livros)[*count].copias);
     getchar();  // Clear stdin buffer
     (*count)++;
+
+    // Save the updated library to the file
+    guardar_livros("livros.csv", *livros, *count);
 }
 
 
-void pesquisar_livros(Livro *livros, int count, const char *termo_pesquisa){
+void pesquisar_livros(Livro *livros, int count){
     for (int i = 0; i < count; i++) {
-        if (strstr(livros[i].titulo, termo_pesquisa) != NULL ||
-            strstr(livros[i].autor, termo_pesquisa) != NULL ||
-            strstr(livros[i].genero, termo_pesquisa) != NULL) {
-            printf("Título: %s\nAutor: %s\nGênero: %s\nCópias: %d\n\n",
-                   livros[i].titulo, livros[i].autor, livros[i].genero, livros[i].copias);
-        }
+        printf("Título: %s\nAutor: %s\nGênero: %s\nCópias: %d\n\n",
+               livros[i].titulo, livros[i].autor, livros[i].genero, livros[i].copias);
     }
 }
+
 
 void guardar_livros(const char *filename, Livro *livros, int count){
     FILE *file = fopen(filename, "w");

@@ -9,21 +9,20 @@
 
 
 
+
 int main() {
-    Livro *livros = NULL;
-    int livro_count = 0;
-    Emprestimo *emprestimos = NULL;
-    int emprestimo_count = 0;
+        Livro *livros;
+        livros = NULL;
+        int livro_count = 0;
+        Emprestimo *emprestimos = NULL;
+        int emprestimo_count = 0;
 
-    FILE *file = fopen("livros.csv", "r"); // Tenta abrir o arquivo para leitura
-    if (file == NULL) {
-        perror("Erro ao abrir o arquivo");
-        return 1; // Retorna código de erro
-    }
+   inicializar_biblioteca("livros.csv", &livros, &livro_count);
+   char termo_pesquisa[MAX_TITULO];  // Assuming MAX_TITULO is the maximum length of your search term
 
-    inicializar_biblioteca("livros.csv", &livros, &livro_count);
 
-    int choice;
+
+        int choice;
     do {
         printf("1. Adicionar Livro\n"
                "2. Listar Livros\n"
@@ -44,9 +43,10 @@ int main() {
                 adicionar_livro(&livros, &livro_count);
                 break;
             case 2:
-
+                pesquisar_livros(livros, livro_count);
                 break;
             case 3:
+                empresta_livro(livros, livro_count, &emprestimos, &emprestimo_count);
 
                 break;
             case 4:
@@ -86,6 +86,6 @@ int main() {
     free(livros);
     free(emprestimos);
 
-    fclose(file);
+
     return 0;
 }
