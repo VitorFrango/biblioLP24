@@ -13,3 +13,12 @@
 1	317	1713308587193902697	CMakeFiles/biblioteca.dir/gestao_emprestimos.c.o	156af683648432c1
 0	318	1713308587193238364	CMakeFiles/biblioteca.dir/principal.c.o	295dacfda2371a70
 318	484	1713308587352772411	biblioteca	91bb4eb67e29ed39
+4	622	1713309205491203973	CMakeFiles/biblioteca.dir/io_dados.c.o	46fcebf27bc1aa23
+2	623	1713309205491195056	CMakeFiles/biblioteca.dir/principal.c.o	295dacfda2371a70
+6	624	1713309205494812073	CMakeFiles/biblioteca.dir/gestao_livros.c.o	e5873c309e634276
+1	428	1713309444962779714	CMakeFiles/biblioteca.dir/gera_relatorios.c.o	babe0c641077c55e
+2	431	1713309444965749436	CMakeFiles/biblioteca.dir/gestao_livros.c.o	e5873c309e634276
+0	432	1713309444962803881	CMakeFiles/biblioteca.dir/principal.c.o	295dacfda2371a70
+1	432	1713309444963251300	CMakeFiles/biblioteca.dir/io_dados.c.o	46fcebf27bc1aa23
+1	478	1713309521408048589	CMakeFiles/biblioteca.dir/gestao_emprestimos.c.o	156af683648432c1
+479	694	1713309521620507087	biblioteca	91bb4eb67e29ed39
