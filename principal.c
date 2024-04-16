@@ -18,12 +18,14 @@ int main() {
         int emprestimo_count = 0; // Contador de empréstimos
 
     // Inicializa a biblioteca com os dados do arquivo livros.csv
-   inicializar_biblioteca("livros.csv", &livros, &livro_count);
+    const char *nome_do_arquivo = "livros.csv";
+    pesquisar_livros(nome_do_arquivo);
 
 
 
 
-   int choice;
+
+    int choice;
     do {
         printf("1. Adicionar Livro\n"
                "2. Listar Livros\n"

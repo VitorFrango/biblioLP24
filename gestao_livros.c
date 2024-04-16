@@ -8,38 +8,62 @@
 
 #include "gestao_livros.h"
 
-void inicializar_biblioteca(const char *filename, Livro **livros, int *count){
+void inicializar_biblioteca(const char *filename, Livro **livros, int *count) {
     FILE *file = fopen(filename, "r");
     if (file == NULL) {
         fprintf(stderr, "Erro ao abrir o arquivo %s.\n", filename);
         return;
     }
+
     char linha[MAX_LINHA_TAM];
     *count = 0;
-    while (fgets(linha, MAX_LINHA_TAM, file) != NULL) {
-        *livros = realloc(*livros, (*count + 1) * sizeof(Livro));
-        if (*livros == NULL) {
-            fprintf(stderr, "Erro ao alocar memória para o livro.\n");
-            fclose(file);
-            return;
+    *livros = NULL;  // Garantir que o ponteiro inicial seja NULL
+
+    Livro *temp;
+
+    while (fgets(linha, sizeof(linha), file) != NULL) {
+        linha[strcspn(linha, "\n")] = 0;  // Remover o caractere de nova linha
+
+        temp = realloc(*livros, (*count + 1) * sizeof(Livro));
+        if (temp == NULL) {
+            fprintf(stderr, "Erro ao alocar memória para os livros.\n");
+            break;  // Sair do loop para limpeza e fechamento
         }
-        sscanf(linha, "%[^,],%[^,],%[^,],%d\n",
-               (*livros)[*count].titulo,
-               (*livros)[*count].autor,
-               (*livros)[*count].genero,
-               &(*livros)[*count].copias);
+        *livros = temp;
+
+        memset(&(*livros)[*count], 0, sizeof(Livro));  // Inicializar a nova entrada
+
+        int itemsRead = sscanf(linha, "%99[^,],%99[^,],%49[^,],%d",
+                               (*livros)[*count].titulo,
+                               (*livros)[*count].autor,
+                               (*livros)[*count].genero,
+                               &(*livros)[*count].copias);
+
+        if (itemsRead != 4) {
+            fprintf(stderr, "Linha malformada: %s\n", linha);
+            continue;  // Pula para a próxima linha se esta está malformada
+        }
+
         (*count)++;
     }
-    fclose(file);
+
+    if (ferror(file)) {
+        perror("Erro ao ler o arquivo");
+        free(*livros);  // Liberar a memória alocada em caso de erro de leitura
+        *livros = NULL;
+        *count = 0;
+    }
+
+    fclose(file);  // Fechar o arquivo em qualquer saída
 }
 
 void adicionar_livro(Livro **livros, int *count){
     Livro *temp = realloc(*livros, (*count + 1) * sizeof(Livro));
     if (temp == NULL) {
         fprintf(stderr, "Erro ao alocar memória para o livro.\n");
-        return; // Exiting function without changing *livros or *count
+        return;
     }
-    *livros = temp; // Use temp, now that we know it's not NULL
+    *livros = temp; // utiliza o ponteiro realocado
     printf("Digite o título do livro: ");
     fgets((*livros)[*count].titulo, MAX_TITULO, stdin);
     (*livros)[*count].titulo[strcspn((*livros)[*count].titulo, "\n")] = '\0';
@@ -51,10 +75,10 @@ void adicionar_livro(Livro **livros, int *count){
     (*livros)[*count].genero[strcspn((*livros)[*count].genero, "\n")] = '\0';
     printf("Digite o número de cópias do livro: ");
     scanf("%d", &(*livros)[*count].copias);
-    getchar();  // Clear stdin buffer
+    getchar();  // limpa o buffer do stdin
     (*count)++;
 
-    // Save the updated library to the file
+    // guarda os livros no arquivo
     guardar_livros("livros.csv", *livros, *count);
 }
 
@@ -71,17 +95,17 @@ void pesquisar_livros(const char *filename) {
         char genero[MAX_GENERO];
         int copias;
         sscanf(linha, "%[^,],%[^,],%[^,],%d\n", titulo, autor, genero, &copias);
+        printf("----------------\n");
         printf("Título: %s\n", titulo);
         printf("Autor: %s\n", autor);
         printf("Gênero: %s\n", genero);
         printf("Cópias: %d\n", copias);
+        printf("----------------\n");
     }
     if (fclose(file) != 0) {
         perror("Erro ao fechar o arquivo");
     }
 }
-
-
 
 
 void guardar_livros(const char *filename, Livro *livros, int count) {
