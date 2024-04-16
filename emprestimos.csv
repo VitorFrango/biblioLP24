@@ -1,5 +1,0 @@
-id;nome;autor;genero;n_exemplares;disponivel;data_emprestimo;data_devolucao
-1;Dom Casmurro;Machado de Assis;Romance;5;Sim;01/04/2024;15/04/2024
-2;Os Lusíadas;Luís de Camões;Épico;3;Não;25/03/2024;09/04/2024
-3;A Moreninha;Joaquim Manuel de Macedo;Romance;4;Sim;;
-4;Mensagem;Fernando Pessoa;Poesia;2;Não;10/04/2024;24/04/2024

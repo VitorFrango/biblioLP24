@@ -44,7 +44,7 @@ void inicializar_biblioteca(const char *filename, Livro **livros, int *count) {
                                (*livros)[*count].autor,
                                (*livros)[*count].genero,
                                &(*livros)[*count].copias);
-        if (itemsRead != 4) {
+        if (itemsRead != 5) {
             fprintf(stderr, "Linha malformada: %s\n", linha);
             continue;
         }
@@ -122,26 +122,24 @@ void pesquisar_livros(const char *filename) {
 
 
 void guardar_livros(const char *filename, Livro *livros, int count) {
-    FILE *file = fopen(filename, "w");
+    FILE *file = fopen(filename, "w");  // Abre o arquivo para escrita
     if (file == NULL) {
-        perror("Erro ao abrir o arquivo para escrita");
+        fprintf(stderr, "Erro ao abrir o arquivo para salvar.\n");
         return;
     }
+
     for (int i = 0; i < count; i++) {
-        if (fprintf(file, "%d%s,%s,%s,%d\n",
-                    livros[i].id,
-                    livros[i].titulo,
-                    livros[i].autor,
-                    livros[i].genero,
-                    livros[i].copias) < 0) {
-            perror("Erro ao escrever no arquivo");
-            break;
-        }
+        fprintf(file, "%d,%s,%s,%s,%d\n",
+                livros[i].id,
+                livros[i].titulo,
+                livros[i].autor,
+                livros[i].genero,
+                livros[i].copias);
     }
-    if (fclose(file) != 0) {
-        perror("Erro ao fechar o arquivo");
-    }
+
+    fclose(file);
 }
+
 
 void remover_livro(Livro **livros, int *count, const char *titulo) {
     int i;
