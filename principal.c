@@ -5,8 +5,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "principal.h"
 
+#include "principal.h"
 
 
 
@@ -18,11 +18,11 @@ int main() {
         int emprestimo_count = 0; // Contador de empréstimos
 
     // Inicializa a biblioteca com os dados do arquivo livros.csv
-    const char *nome_do_arquivo = "livros.csv";
-    pesquisar_livros(nome_do_arquivo);
 
 
 
+
+    inicializar_biblioteca("livros.csv", &livros, &livro_count);
 
 
     int choice;

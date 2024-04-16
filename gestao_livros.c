@@ -1,12 +1,15 @@
 // Created by Vitor Frango on 12/04/2024.
 // Funções para gerir livros.
 
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
 
+
 #include "gestao_livros.h"
+#include "principal.h"
 
 void inicializar_biblioteca(const char *filename, Livro **livros, int *count) {
     FILE *file = fopen(filename, "r");
@@ -17,45 +20,49 @@ void inicializar_biblioteca(const char *filename, Livro **livros, int *count) {
 
     char linha[MAX_LINHA_TAM];
     *count = 0;
-    *livros = NULL;  // Garantir que o ponteiro inicial seja NULL
+    *livros = NULL;
 
     Livro *temp;
 
     while (fgets(linha, sizeof(linha), file) != NULL) {
-        linha[strcspn(linha, "\n")] = 0;  // Remover o caractere de nova linha
+        linha[strcspn(linha, "\n")] = 0;
 
         temp = realloc(*livros, (*count + 1) * sizeof(Livro));
         if (temp == NULL) {
             fprintf(stderr, "Erro ao alocar memória para os livros.\n");
-            break;  // Sair do loop para limpeza e fechamento
+            free(*livros);  // Liberar memória antes alocada
+            *livros = NULL;
+            goto cleanup;
         }
         *livros = temp;
 
-        memset(&(*livros)[*count], 0, sizeof(Livro));  // Inicializar a nova entrada
+        memset(&(*livros)[*count], 0, sizeof(Livro));
 
-        int itemsRead = sscanf(linha, "%99[^,],%99[^,],%49[^,],%d",
+        int itemsRead = sscanf(linha, "%d, %[^,],%[^,],%[^,],%d",
+                               &(*livros)[*count].id,
                                (*livros)[*count].titulo,
                                (*livros)[*count].autor,
                                (*livros)[*count].genero,
                                &(*livros)[*count].copias);
-
         if (itemsRead != 4) {
             fprintf(stderr, "Linha malformada: %s\n", linha);
-            continue;  // Pula para a próxima linha se esta está malformada
+            continue;
         }
 
         (*count)++;
     }
 
+    cleanup:
     if (ferror(file)) {
         perror("Erro ao ler o arquivo");
-        free(*livros);  // Liberar a memória alocada em caso de erro de leitura
+        free(*livros);
         *livros = NULL;
         *count = 0;
     }
 
     fclose(file);  // Fechar o arquivo em qualquer saída
 }
+
 
 void adicionar_livro(Livro **livros, int *count){
     Livro *temp = realloc(*livros, (*count + 1) * sizeof(Livro));
@@ -64,6 +71,9 @@ void adicionar_livro(Livro **livros, int *count){
         return;
     }
     *livros = temp; // utiliza o ponteiro realocado
+    printf("Digite o ID do livro: ");
+    scanf("%d", &(*livros)[*count].id);
+    getchar();  // limpa o buffer do stdin
     printf("Digite o título do livro: ");
     fgets((*livros)[*count].titulo, MAX_TITULO, stdin);
     (*livros)[*count].titulo[strcspn((*livros)[*count].titulo, "\n")] = '\0';
@@ -90,12 +100,15 @@ void pesquisar_livros(const char *filename) {
     }
     char linha[MAX_LINHA_TAM];
     while (fgets(linha, MAX_LINHA_TAM, file) != NULL) {
+        int id;
         char titulo[MAX_TITULO];
         char autor[MAX_AUTOR];
         char genero[MAX_GENERO];
         int copias;
-        sscanf(linha, "%[^,],%[^,],%[^,],%d\n", titulo, autor, genero, &copias);
+
+        sscanf(linha, "%d,%[^,],%[^,],%[^,],%d\n", &id, titulo, autor, genero, &copias);
         printf("----------------\n");
+        printf("ID: %d\n", id);
         printf("Título: %s\n", titulo);
         printf("Autor: %s\n", autor);
         printf("Gênero: %s\n", genero);
@@ -115,7 +128,8 @@ void guardar_livros(const char *filename, Livro *livros, int count) {
         return;
     }
     for (int i = 0; i < count; i++) {
-        if (fprintf(file, "%s,%s,%s,%d\n",
+        if (fprintf(file, "%d%s,%s,%s,%d\n",
+                    livros[i].id,
                     livros[i].titulo,
                     livros[i].autor,
                     livros[i].genero,

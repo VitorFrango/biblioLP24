@@ -11,6 +11,7 @@
 #define MAX_LINHA_TAM 100
 
 typedef struct {
+    int id;
     char titulo[MAX_TITULO];
     char autor[MAX_AUTOR];
     char genero[MAX_GENERO];
