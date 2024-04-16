@@ -10,6 +10,7 @@
 #include "gestao_emprestimos.h"
 
 void empresta_livro(Livro *livros, int count, Emprestimo **emprestimos, int *emprestimo_count) {
+
     int livro_id;
     printf("Digite o ID do livro a ser emprestado: ");
     scanf("%d", &livro_id);
