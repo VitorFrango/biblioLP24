@@ -4,6 +4,8 @@
 
 #include "interface.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 
 void exibir_menu_principal(Livro **livros, int *livro_count, Emprestimo **emprestimos, int *emprestimo_count) {
@@ -28,7 +30,9 @@ void exibir_menu_principal(Livro **livros, int *livro_count, Emprestimo **empres
             case 3:
                 menu_relatorios(emprestimos, emprestimo_count);
                 break;
-                // ...
+            case 0:
+                printf("Adeus!\n");
+                exit(0);
         }
     } while (escolha != 0);
 
@@ -44,12 +48,15 @@ void menu_gestao_livros(Livro **livros, int *livro_count) {
         printf("1. Adicionar novo livro\n");
         printf("2. Remover livro existente\n");
         printf("3. Editar informação sobre um livro\n");
-        printf("4. Pesquisar livros por título, autor ou gênero\n");
+        printf("4. Pesquisar livros por título\n");
         printf("5. Guardar livros\n");
         printf("6. Voltar ao menu principal\n");
         printf("0. Sair\n");
         printf("Escolha uma opção: ");
         scanf("%d", &escolha);
+
+        // Limpa o buffer de entrada após ler um inteiro com scanf
+        while (getchar() != '\n');
 
         switch (escolha) {
             case 1:
@@ -62,17 +69,19 @@ void menu_gestao_livros(Livro **livros, int *livro_count) {
                 scanf("%d", &id);
                 remover_livro_por_id(livros, livro_count, id);
             }
-
                 break;
-            case 3:
-                printf("Título do livro a editar: ");
-                scanf("%s", titulo);
-                editar_livro(*livros, *livro_count, titulo);
+            case 3: {
+                int id;
+                printf("ID do livro a editar: ");
+                scanf("%d", &id);
+                editar_livro(livros, *livro_count,id);
+            }
                 break;
             case 4:
-                printf("Titulo do livro a pesquisar: ");
-                scanf("%s", titulo);
-                pesquisar_livros("livros.csv");
+                printf("Digite o título do livro: ");
+                fgets(titulo, sizeof(titulo), stdin);
+                titulo[strcspn(titulo, "\n")] = 0;  // Remove o caractere de nova linha do fim da string
+                pesquisar_livros("livros.csv", titulo);
                 break;
             case 5:
                 guardar_livros("livros.csv", *livros, *livro_count);
@@ -80,7 +89,8 @@ void menu_gestao_livros(Livro **livros, int *livro_count) {
             case 6:
                 exibir_menu_principal(livros, livro_count, NULL, NULL);
             case 0:
-                break;
+                printf("Adeus!\n");
+                exit(0);
             default:
                 printf("Opção inválida. Tente novamente.\n");
         }
@@ -97,6 +107,7 @@ void menu_gestao_emprestimos(Livro **livros, int *livro_count, Emprestimo **empr
         printf("3. Renovar empréstimo\n");
         printf("4. GUardar empréstimos\n");
         printf("5. Voltar ao menu principal\n");
+        printf("0. Sair\n");
         printf("Escolha uma opção: ");
         scanf("%d", &escolha);
 
@@ -117,7 +128,8 @@ void menu_gestao_emprestimos(Livro **livros, int *livro_count, Emprestimo **empr
                 exibir_menu_principal(livros, livro_count, emprestimos, emprestimo_count);
                 break;
             case 0:
-                break;
+                printf("Adeus!\n");
+                exit(0);
             default:
                 printf("Opção inválida. Tente novamente.\n");
         }
@@ -133,6 +145,7 @@ void menu_relatorios(Emprestimo **emprestimos, int *emprestimo_count) {
         printf("2. Livros não devolvidos\n");
         printf("3. Maiores locatários\n");
         printf("4. Voltar ao menu principal\n");
+        printf("0. Sair\n");
         printf("Escolha uma opção: ");
         scanf("%d", &escolha);
 
@@ -151,7 +164,9 @@ void menu_relatorios(Emprestimo **emprestimos, int *emprestimo_count) {
                 exibir_menu_principal(NULL, NULL, emprestimos, emprestimo_count);
                 break;
             case 0:
-                break;
+                printf("Adeus!\n");
+                exit(0);
+
             default:
                 printf("Opção inválida. Tente novamente.\n");
         }

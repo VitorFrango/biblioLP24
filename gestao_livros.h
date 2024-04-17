@@ -19,11 +19,11 @@ typedef struct Livro {
 } Livro;
 
 void inicializar_biblioteca(const char *filename, Livro **livros, int *count);
-void pesquisar_livros(const char *filename);
+void pesquisar_livros(const char *filename, const char *titulo_procura);
 void guardar_livros(const char *filename, Livro *livros, int count);
 void adicionar_livro(Livro **livros, int *count);
 void remover_livro_por_id(Livro **livros, int *count, int id);
-void editar_livro(Livro *livros, int count, const char *titulo);
+void editar_livro(Livro *livros, int count, int id);
 
 
 #endif //GESTAO_LIVROS_H

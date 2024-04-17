@@ -63,6 +63,24 @@ void inicializar_biblioteca(const char *filename, Livro **livros, int *count) {
     fclose(file);  // Fechar o arquivo em qualquer saída
 }
 
+void guardar_livros(const char *filename, Livro *livros, int count) {
+    FILE *file = fopen(filename, "w");  // Abre o arquivo para escrita
+    if (file == NULL) {
+        fprintf(stderr, "Erro ao abrir o arquivo para salvar.\n");
+        return;
+    }
+
+    for (int i = 0; i < count; i++) {
+        fprintf(file, "%d,\"%s\",\"%s\",\"%s\",%d\n",
+                livros[i].id,
+                livros[i].titulo,
+                livros[i].autor,
+                livros[i].genero,
+                livros[i].copias);
+    }
+    fclose(file);
+}
+
 
 void adicionar_livro(Livro **livros, int *count){
     Livro *temp = realloc(*livros, (*count + 1) * sizeof(Livro));
@@ -92,7 +110,7 @@ void adicionar_livro(Livro **livros, int *count){
     guardar_livros("livros.csv", *livros, *count);
 }
 
-void pesquisar_livros(const char *filename) {
+void pesquisar_livros(const char *filename, const char *titulo_procura) {
     FILE *file = fopen(filename, "r");
     if (file == NULL) {
         perror("Erro ao abrir o arquivo para leitura");
@@ -106,37 +124,19 @@ void pesquisar_livros(const char *filename) {
         char genero[MAX_GENERO];
         int copias;
 
-        sscanf(linha, "%d,%[^,],%[^,],%[^,],%d\n", &id, titulo, autor, genero, &copias);
-        printf("----------------\n");
-        printf("ID: %d\n", id);
-        printf("Título: %s\n", titulo);
-        printf("Autor: %s\n", autor);
-        printf("Gênero: %s\n", genero);
-        printf("Cópias: %d\n", copias);
-        printf("----------------\n");
-    }
-    if (fclose(file) != 0) {
-        perror("Erro ao fechar o arquivo");
-    }
-}
+        sscanf(linha, "%d,%[^,],%[^,],%[^,],%d", &id, titulo, autor, genero, &copias);
 
-
-void guardar_livros(const char *filename, Livro *livros, int count) {
-    FILE *file = fopen(filename, "w");  // Abre o arquivo para escrita
-    if (file == NULL) {
-        fprintf(stderr, "Erro ao abrir o arquivo para salvar.\n");
-        return;
+        if (strcmp(titulo, titulo_procura) == 0) {
+            printf("----------------\n");
+            printf("ID: %d\n", id);
+            printf("Título: %s\n", titulo);
+            printf("Autor: %s\n", autor);
+            printf("Gênero: %s\n", genero);
+            printf("Cópias: %d\n", copias);
+            printf("----------------\n");
+            break;
+        }
     }
-
-    for (int i = 0; i < count; i++) {
-        fprintf(file, "%d,%s,%s,%s,%d\n",
-                livros[i].id,
-                livros[i].titulo,
-                livros[i].autor,
-                livros[i].genero,
-                livros[i].copias);
-    }
-
     fclose(file);
 }
 
@@ -155,6 +155,9 @@ void remover_livro_por_id(Livro **livros, int *count, int id) {
                 return;
             }
             printf("Livro removido com sucesso.\n");
+
+            // Guarda os livros no arquivo após a remoção
+            guardar_livros("livros.csv", *livros, *count);
             return;
         }
     }
@@ -162,24 +165,28 @@ void remover_livro_por_id(Livro **livros, int *count, int id) {
 }
 
 
-void editar_livro(Livro *livros, int count, const char *titulo){
+
+void editar_livro(Livro *livros, int count, int id) {
     for (int i = 0; i < count; i++) {
-        if (strcmp(livros[i].titulo, titulo) == 0) {
-            printf("Editando livro: %s\\n", titulo);
+        if (livros[i].id == id) {
+            printf("Editando livro com ID: %d\n", id);
             printf("Novo título: ");
             fgets(livros[i].titulo, MAX_TITULO, stdin);
-            livros[i].titulo[strcspn(livros[i].titulo, "\\n")] = '\0';
+            livros[i].titulo[strcspn(livros[i].titulo, "\n")] = '\0';
             printf("Novo autor: ");
             fgets(livros[i].autor, MAX_AUTOR, stdin);
-            livros[i].autor[strcspn(livros[i].autor, "\\n")] = '\0';
+            livros[i].autor[strcspn(livros[i].autor, "\n")] = '\0';
             printf("Novo gênero: ");
             fgets(livros[i].genero, MAX_GENERO, stdin);
-            livros[i].genero[strcspn(livros[i].genero, "\\n")] = '\0';
+            livros[i].genero[strcspn(livros[i].genero, "\n")] = '\0';
             printf("Nova quantidade de cópias: ");
             scanf("%d", &livros[i].copias);
-            getchar();  // Clear stdin buffer
+            getchar();  // Clear stdin buffer after reading an integer
+
+            // Save the updated book information to the file
+            guardar_livros("livros.csv", livros, count);
             return;
         }
     }
-    printf("Livro não encontrado.\\n");
+    printf("Livro com ID %d não encontrado.\n", id);
 }

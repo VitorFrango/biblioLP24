@@ -20,8 +20,8 @@ void menu_relatorios(Emprestimo **emprestimos, int *emprestimo_count);
 // Protótipos de funções para a gestão de livros
 void adicionar_livro(Livro **livros, int *livro_count);
 void remover_livro_por_id(Livro **livros, int *count, int id);
-void editar_livro(Livro *livros, int count, const char *titulo);
-void pesquisar_livros(const char *arquivo);
+void editar_livro(Livro *livros, int count, int id);
+void pesquisar_livros(const char *filename, const char *titulo_procura);
 
 // Protótipos de funções para a gestão de empréstimos
 void remover_livro_por_id(Livro **livros, int *count, int id);
