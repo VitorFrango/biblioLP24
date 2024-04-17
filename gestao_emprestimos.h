@@ -25,7 +25,7 @@ typedef struct {
 } UserCount;
 
 
-
+void inicializar_enorestimos(const char *filename, Livro **livros, int *count);
 void empresta_livro(Livro *livros, int count, Emprestimo **emprestimos, int *emprestimo_count);
 void guardar_emprestimo(const char *filename, Emprestimo *emprestimos, int emprestimo_count);
 void atualizar_emprestimo(Livro *livros, int livro_count, Emprestimo **emprestimos, int *emprestimo_count);

@@ -6,6 +6,83 @@
 #include "gestao_emprestimos.h"  // Assume que esse cabeçalho define 'Livro' e 'Emprestimo'
 #include "gestao_livros.h"
 
+
+void inicializar_enorestimos(const char *filename, Livro **livros, int *count) {
+    FILE *file = fopen(filename, "r");
+    if (file == NULL) {
+        fprintf(stderr, "Erro ao abrir o arquivo %s.\n", filename);
+        return;
+    }
+
+    char linha[MAX_LINHA_TAM];
+    *count = 0;
+    *livros = NULL;
+
+    Livro *temp;
+
+    while (fgets(linha, sizeof(linha), file) != NULL) {
+        linha[strcspn(linha, "\n")] = 0;
+
+        temp = realloc(*livros, (*count + 1) * sizeof(Livro));
+        if (temp == NULL) {
+            fprintf(stderr, "Erro ao alocar memória para os livros.\n");
+            free(*livros);  // Liberar memória antes alocada
+            *livros = NULL;
+            goto cleanup;
+        }
+        *livros = temp;
+
+        memset(&(*livros)[*count], 0, sizeof(Livro));
+
+        int itemsRead = sscanf(linha, "%d, %[^,],%[^,],%[^,],%d",
+                               &(*livros)[*count].id,
+                               (*livros)[*count].titulo,
+                               (*livros)[*count].autor,
+                               (*livros)[*count].genero,
+                               &(*livros)[*count].copias);
+        if (itemsRead != 5) {
+            fprintf(stderr, "Linha malformada: %s\n", linha);
+            continue;
+        }
+
+        (*count)++;
+    }
+
+    cleanup:
+    if (ferror(file)) {
+        perror("Erro ao ler o arquivo");
+        free(*livros);
+        *livros = NULL;
+        *count = 0;
+    }
+
+    fclose(file);  // Fechar o arquivo em qualquer saída
+}
+
+void guardar_emprestimo(const char *filename, Emprestimo *emprestimos, int emprestimo_count) {
+    FILE *file = fopen(filename, "w");
+    if (file == NULL) {
+        perror("Erro ao abrir o arquivo");
+        return;
+    }
+    char buffer_emprestimo[20], buffer_devolucao[20];  // Para armazenar as datas formatadas
+    for (int i = 0; i < emprestimo_count; i++) {
+        // Formata a data de empréstimo
+        strftime(buffer_emprestimo, sizeof(buffer_emprestimo), "%Y-%m-%d %H:%M:%S", localtime(&emprestimos[i].data_emprestimo));
+        // Formata a data de devolução
+        strftime(buffer_devolucao, sizeof(buffer_devolucao), "%Y-%m-%d %H:%M:%S", localtime(&emprestimos[i].data_devolucao));
+
+        // Grava no arquivo
+        fprintf(file, "%s,%s,%s,%s\n",
+                emprestimos[i].titulo,
+                emprestimos[i].user,
+                buffer_emprestimo,
+                buffer_devolucao);
+    }
+
+    fclose(file);
+}
+
 void empresta_livro(Livro *livros, int count, Emprestimo **emprestimos, int *emprestimo_count) {
     int livro_id;
     printf("Digite o ID do livro a ser emprestado: ");
@@ -35,6 +112,9 @@ void empresta_livro(Livro *livros, int count, Emprestimo **emprestimos, int *emp
     (*emprestimos)[*emprestimo_count].data_emprestimo = current_time;
     (*emprestimos)[*emprestimo_count].data_devolucao = current_time + 604800;  // 7 dias
     (*emprestimo_count)++;
+
+    // Grava os empréstimos atualizados no arquivo
+    guardar_emprestimo("emprestimos.csv", *emprestimos, *emprestimo_count);
 }
 
 void devolver_livro(Livro *livros, int count, Emprestimo **emprestimos, int *emprestimo_count) {
@@ -106,19 +186,3 @@ void atualizar_emprestimo(Livro *livros, int livro_count, Emprestimo **emprestim
     }
 }
 
-void guardar_emprestimo(const char *filename, Emprestimo *emprestimos, int emprestimo_count) {
-    FILE *file = fopen(filename, "w");
-    if (file == NULL) {
-        perror("Erro ao abrir o arquivo");
-        return;
-    }
-    for (int i = 0; i < emprestimo_count; i++) {
-        fprintf(file, "%s,%s,%ld,%ld\n",
-                emprestimos[i].titulo,
-                emprestimos[i].user,
-                (long)emprestimos[i].data_emprestimo,
-                (long)emprestimos[i].data_devolucao);
-    }
-
-    fclose(file);
-}
