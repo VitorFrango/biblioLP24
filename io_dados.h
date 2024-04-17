@@ -10,7 +10,7 @@
 
 #include "gestao_livros.h"
 #include "gestao_emprestimos.h"
-#include "principal.h"
+
 
 void carregar_livros_csv(const char *nome_arquivo);
 void salvar_livros_csv(const char *nome_arquivo);

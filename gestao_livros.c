@@ -9,7 +9,7 @@
 
 
 #include "gestao_livros.h"
-#include "principal.h"
+
 
 void inicializar_biblioteca(const char *filename, Livro **livros, int *count) {
     FILE *file = fopen(filename, "r");

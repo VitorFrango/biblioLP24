@@ -4,7 +4,6 @@ project(biblioteca C)
 set(CMAKE_C_STANDARD 11)
 
 add_executable(biblioteca principal.c
-        principal.h
         gestao_emprestimos.h
         gestao_emprestimos.c
         gera_relatorios.h
