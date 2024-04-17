@@ -8,8 +8,8 @@ add_executable(biblioteca principal.c
         gestao_emprestimos.c
         gera_relatorios.h
         gera_relatorios.c
-        io_dados.h
-        io_dados.c
         gestao_livros.c
         gestao_livros.h
-       )
+        interface.c
+        interface.h
+)

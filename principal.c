@@ -24,14 +24,12 @@ O programa deve ser modular, com cada funcionalidade implementada num módulo se
  implementando testes de unidade e de integração.
 */
 
-#include <stdio.h>
-#include <stdlib.h>
+
 
 
 #include "gestao_emprestimos.h"
 #include "gestao_livros.h"
-#include "io_dados.h"
-#include "gera_relatorios.h"
+#include "interface.h"
 
 
 int main() {
@@ -42,76 +40,12 @@ int main() {
         int emprestimo_count = 0; // Contador de empréstimos
 
     // Inicializa a biblioteca com os dados do arquivo livros.csv
-
-
-
-
     inicializar_biblioteca("livros.csv", &livros, &livro_count);
 
-
-    int choice;
-    do {
-        printf("1. Adicionar Livro\n"
-               "2. Listar Livros\n"
-               "3. Emprestar Livro\n"
-               "4. Devolver Livro\n"
-               "5. Renovar Empréstimo\n"
-               "6. Relatório de Livros Mais Emprestados\n"
-               "7. Relatório de Livros Não Devolvidos\n"
-               "8. Relatório de Maiores Locatários\n"
-               "9. Salvar Alterações\n"
-               "0. Sair e Salvar\nEscolha uma opção: ");
-
-        scanf("%d", &choice);
-        getchar();  // Limpa buffer do stdin
-
-        switch (choice) {
-            case 1:
-                adicionar_livro(&livros, &livro_count);
-                break;
-            case 2:
-                pesquisar_livros("livros.csv");
-                break;
-            case 3:
-                empresta_livro(livros, livro_count, &emprestimos, &emprestimo_count);
-
-                break;
-            case 4:
-                devolver_livro(livros, livro_count, &emprestimos, &emprestimo_count);
-                break;
-            case 5:
-                renovar_emprestimo(emprestimos, emprestimo_count);;
-                break;
-            case 6:
-                livros_mais_emprestados(emprestimos, emprestimo_count);
+    exibir_menu_principal(&livros, &livro_count, &emprestimos, &emprestimo_count);
+    menu_gestao_livros(&livros, &livro_count);
+    menu_gestao_emprestimos(&livros, &livro_count, &emprestimos, &emprestimo_count);
+    menu_relatorios(&emprestimos, &emprestimo_count);
 
 
-                break;
-            case 7:
-                relatorio_livros_nao_devolvidos(emprestimos, emprestimo_count);
-
-                break;
-            case 8:
-                locatarios_com_mais_emprestimos(emprestimos, emprestimo_count);
-
-                break;
-            case 9:
-
-                printf("Dados salvos com sucesso!\n");
-                break;
-            case 0:
-                guardar_livros("livros.csv", livros, livro_count);
-                guardar_emprestimo("emprestimos.csv", emprestimos, emprestimo_count);
-                printf("Saindo e salvando dados...\n");
-                break;
-            default:
-                printf("Opção inválida!\n");
-        }
-    } while (choice != 0);
-
-    free(livros);
-    free(emprestimos);
-
-
-    return 0;
 }

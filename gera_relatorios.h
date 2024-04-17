@@ -9,7 +9,6 @@
 
 #include "gestao_emprestimos.h"
 #include "gestao_livros.h"
-#include "io_dados.h"
 
 
 
