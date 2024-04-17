@@ -56,10 +56,12 @@ void menu_gestao_livros(Livro **livros, int *livro_count) {
                 adicionar_livro(livros, livro_count);
 
                 break;
-            case 2:
-                printf("Título do livro a remover: ");
-                scanf("%s", titulo);
-                remover_livro(livros, livro_count, titulo);
+            case 2: {
+                int id;
+                printf("ID do livro a remover: ");
+                scanf("%d", &id);
+                remover_livro_por_id(livros, livro_count, id);
+            }
 
                 break;
             case 3:
@@ -155,8 +157,3 @@ void menu_relatorios(Emprestimo **emprestimos, int *emprestimo_count) {
         }
     } while (escolha != 0);
 }
-
-
-
-
-

@@ -1,5 +1,7 @@
+
 #ifndef GESTAO_EMPRESTIMOS_H
 #define GESTAO_EMPRESTIMOS_H
+
 
 #include <time.h>
 #include "gestao_livros.h"  // Asumindo que esse cabeçalho contém a definição de 'Livro'
@@ -9,18 +11,20 @@
 #define MAX_GENERO 30
 #define MAX_UTILIZADOR 50
 
-typedef struct {
-    char titulo[MAX_TITULO];
-    char user[MAX_UTILIZADOR];
+typedef struct Emprestimo {
+    char titulo[50];
+    char user[50];
     int is_devolvido;
     time_t data_emprestimo;
     time_t data_devolucao;
-} Emprestimo;
+}Emprestimo;
 
 typedef struct {
     char nome[MAX_UTILIZADOR];
     int count;
 } UserCount;
+
+
 
 void empresta_livro(Livro *livros, int count, Emprestimo **emprestimos, int *emprestimo_count);
 void guardar_emprestimo(const char *filename, Emprestimo *emprestimos, int emprestimo_count);

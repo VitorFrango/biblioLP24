@@ -4,7 +4,7 @@
 #include <string.h>
 
 #include "gestao_emprestimos.h"  // Assume que esse cabeçalho define 'Livro' e 'Emprestimo'
-
+#include "gestao_livros.h"
 
 void empresta_livro(Livro *livros, int count, Emprestimo **emprestimos, int *emprestimo_count) {
     int livro_id;

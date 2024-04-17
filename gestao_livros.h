@@ -10,7 +10,7 @@
 #define MAX_GENERO 30
 #define MAX_LINHA_TAM 100
 
-typedef struct {
+typedef struct Livro {
     int id;
     char titulo[MAX_TITULO];
     char autor[MAX_AUTOR];
@@ -22,7 +22,7 @@ void inicializar_biblioteca(const char *filename, Livro **livros, int *count);
 void pesquisar_livros(const char *filename);
 void guardar_livros(const char *filename, Livro *livros, int count);
 void adicionar_livro(Livro **livros, int *count);
-void remover_livro(Livro **livros, int *count, const char *titulo);
+void remover_livro_por_id(Livro **livros, int *count, int id);
 void editar_livro(Livro *livros, int count, const char *titulo);
 
 
