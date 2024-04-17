@@ -141,26 +141,24 @@ void guardar_livros(const char *filename, Livro *livros, int count) {
 }
 
 
-void remover_livro(Livro **livros, int *count, const char *titulo) {
-    int i;
-    for (i = 0; i < *count; i++) {
+void remover_livro(Livro **livros, int *count, const char *titulo){
+    for (int i = 0; i < *count; i++) {
         if (strcmp((*livros)[i].titulo, titulo) == 0) {
-            break;
+            for (int j = i; j < *count - 1; j++) {
+                (*livros)[j] = (*livros)[j + 1];
+            }
+            (*count)--;
+            Livro *temp = realloc(*livros, *count * sizeof(Livro));
+            if (temp == NULL) {
+                fprintf(stderr, "Erro ao alocar memória para os livros.\n");
+                return;
+            }
+            *livros = temp;
+            printf("Livro removido com sucesso.\n");
+            return;
         }
     }
-    if (i == *count) {
-        printf("Livro não encontrado.\n");
-        return;
-    }
-    for (; i < *count - 1; i++) {
-        (*livros)[i] = (*livros)[i + 1];
-    }
-    *livros = realloc(*livros, (*count - 1) * sizeof(Livro));
-    if (*livros == NULL && *count > 1) {
-        fprintf(stderr, "Erro ao realocar memória.\n");
-        return;
-    }
-    (*count)--;
+    printf("Livro não encontrado.\n");
 }
 
 
@@ -185,4 +183,5 @@ void editar_livro(Livro *livros, int count, const char *titulo){
     }
     printf("Livro não encontrado.\\n");
 }
+
 

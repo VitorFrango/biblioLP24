@@ -9,9 +9,9 @@
 #include "gestao_emprestimos.h"
 #include "gera_relatorios.h"
 
-void exibir_menu_principal();
 
 
+void exibir_menu_principal(Livro **livros, int *livro_count, Emprestimo **emprestimos, int *emprestimo_count);
 void menu_gestao_livros(Livro **livros, int *livro_count);
 void menu_gestao_emprestimos(Livro **livros, int *livro_count, Emprestimo **emprestimos, int *emprestimo_count);
 void menu_relatorios(Emprestimo **emprestimos, int *emprestimo_count);

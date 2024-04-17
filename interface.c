@@ -5,7 +5,7 @@
 #include "interface.h"
 
 #include <stdio.h>
-#include <stdlib.h>
+
 
 
 
@@ -38,6 +38,7 @@ void exibir_menu_principal(Livro **livros, int *livro_count, Emprestimo **empres
 
 void menu_gestao_livros(Livro **livros, int *livro_count) {
     int escolha;
+    char titulo[MAX_TITULO];
 
 
     do {
@@ -57,13 +58,20 @@ void menu_gestao_livros(Livro **livros, int *livro_count) {
 
                 break;
             case 2:
-                guardar_livros("livros.csv", *livros, *livro_count);
+                printf("Título do livro a remover: ");
+                scanf("%s", titulo);
+                remover_livro(livros, livro_count, titulo);
+
                 break;
             case 3:
-                //editar_livro();
+                printf("Título do livro a editar: ");
+                scanf("%s", titulo);
+                editar_livro(*livros, *livro_count, titulo);
                 break;
             case 4:
-                //pesquisar_livros();
+                printf("Titulo do livro a pesquisar: ");
+                scanf("%s", titulo);
+                pesquisar_livros("livros.csv");
                 break;
             case 5:
                 guardar_livros("livros.csv", *livros, *livro_count);
