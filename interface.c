@@ -3,10 +3,7 @@
 //
 
 #include "interface.h"
-
 #include <stdio.h>
-
-
 
 
 void exibir_menu_principal(Livro **livros, int *livro_count, Emprestimo **emprestimos, int *emprestimo_count) {
@@ -34,6 +31,7 @@ void exibir_menu_principal(Livro **livros, int *livro_count, Emprestimo **empres
                 // ...
         }
     } while (escolha != 0);
+
 }
 
 void menu_gestao_livros(Livro **livros, int *livro_count) {
@@ -48,7 +46,8 @@ void menu_gestao_livros(Livro **livros, int *livro_count) {
         printf("3. Editar informação sobre um livro\n");
         printf("4. Pesquisar livros por título, autor ou gênero\n");
         printf("5. Guardar livros\n");
-        printf("0. Voltar ao menu principal\n");
+        printf("6. Voltar ao menu principal\n");
+        printf("0. Sair\n");
         printf("Escolha uma opção: ");
         scanf("%d", &escolha);
 
@@ -76,6 +75,8 @@ void menu_gestao_livros(Livro **livros, int *livro_count) {
             case 5:
                 guardar_livros("livros.csv", *livros, *livro_count);
                 break;
+            case 6:
+                exibir_menu_principal(livros, livro_count, NULL, NULL);
             case 0:
                 break;
             default:
@@ -93,7 +94,7 @@ void menu_gestao_emprestimos(Livro **livros, int *livro_count, Emprestimo **empr
         printf("2. Devolver livro\n");
         printf("3. Renovar empréstimo\n");
         printf("4. GUardar empréstimos\n");
-        printf("0. Voltar ao menu principal\n");
+        printf("5. Voltar ao menu principal\n");
         printf("Escolha uma opção: ");
         scanf("%d", &escolha);
 
@@ -109,6 +110,9 @@ void menu_gestao_emprestimos(Livro **livros, int *livro_count, Emprestimo **empr
                 break;
             case 4:
                 guardar_emprestimo("emprestimos.csv", *emprestimos, *emprestimo_count);
+                break;
+            case 5:
+                exibir_menu_principal(livros, livro_count, emprestimos, emprestimo_count);
                 break;
             case 0:
                 break;
@@ -126,7 +130,7 @@ void menu_relatorios(Emprestimo **emprestimos, int *emprestimo_count) {
         printf("1. Livros mais emprestados\n");
         printf("2. Livros não devolvidos\n");
         printf("3. Maiores locatários\n");
-        printf("0. Voltar ao menu principal\n");
+        printf("4. Voltar ao menu principal\n");
         printf("Escolha uma opção: ");
         scanf("%d", &escolha);
 
@@ -140,6 +144,9 @@ void menu_relatorios(Emprestimo **emprestimos, int *emprestimo_count) {
                 break;
             case 3:
                 locatarios_com_mais_emprestimos(*emprestimos, *emprestimo_count);
+                break;
+            case 4:
+                exibir_menu_principal(NULL, NULL, emprestimos, emprestimo_count);
                 break;
             case 0:
                 break;
