@@ -6,14 +6,22 @@
 #include <time.h>
 #include "gestao_livros.h"  // Asumindo que esse cabeçalho contém a definição de 'Livro'
 
+
+#define MAX_LINHA_TAM 100
 #define MAX_TITULO 100
 #define MAX_AUTOR 50
 #define MAX_GENERO 30
+#define MAX_LINHA_TAM 100
 #define MAX_UTILIZADOR 50
 
 typedef struct Emprestimo {
-    char titulo[50];
-    char user[50];
+    int id;
+    char titulo[MAX_TITULO];
+    char autor[MAX_AUTOR];
+    char genero[MAX_GENERO];
+    int copias;
+    char user[MAX_UTILIZADOR];
+    int copias_atuaiss;
     int is_devolvido;
     time_t data_emprestimo;
     time_t data_devolucao;
