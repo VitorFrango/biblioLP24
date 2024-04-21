@@ -20,6 +20,8 @@ void copiarDadosLivrosParaEmprestimos(const char *livrosFilePath, const char *em
 
     Livro livro;
     Emprestimo emprestimo;
+    char buffer_emprestimo[20];  // Buffer to hold date in YYYY-MM-DD HH:MM:SS format
+    char buffer_devolucao[20];   // Buffer to hold date in YYYY-MM-DD HH:MM:SS format
 
     while (fscanf(livrosFile, "%d,%99[^,],%99[^,],%49[^,],%d\n", &livro.id, livro.titulo, livro.autor, livro.genero, &livro.copias) == 5) {
         emprestimo.id = livro.id;
@@ -34,9 +36,17 @@ void copiarDadosLivrosParaEmprestimos(const char *livrosFilePath, const char *em
         emprestimo.data_emprestimo = time(NULL);
         emprestimo.data_devolucao = 0;
 
+        // Convert time_t to struct tm
+        struct tm *tm_emprestimo = localtime(&emprestimo.data_emprestimo);
+        struct tm *tm_devolucao = localtime(&emprestimo.data_devolucao);
+
+        // Format time as string
+        strftime(buffer_emprestimo, sizeof(buffer_emprestimo), "%Y-%m-%d ", tm_emprestimo);
+        strftime(buffer_devolucao, sizeof(buffer_devolucao), "%Y-%m-%d ", tm_devolucao);
+
         fprintf(
                 emprestimosFile,
-                "%d,%s,%s,%s,%d,%d,%d,%s,%d,%ld,%ld\n",
+                "%d,%s,%s,%s,%d,%d,%d,%s,%d,%s,%s\n",
                 emprestimo.id,
                 emprestimo.titulo,
                 emprestimo.autor,
@@ -46,8 +56,8 @@ void copiarDadosLivrosParaEmprestimos(const char *livrosFilePath, const char *em
                 emprestimo.copias_atuais,
                 emprestimo.user,
                 emprestimo.is_devolvido,
-                emprestimo.data_emprestimo,
-                emprestimo.data_devolucao
+                buffer_emprestimo,
+                buffer_devolucao
         );
     }
 
@@ -127,7 +137,7 @@ void empresta_livro(Livro *livros, int count, Emprestimo **emprestimos, int *emp
                 (*emprestimos)[*emprestimo_count].data_devolucao = time(NULL) + 604800;  // 7 dias
                 (*emprestimo_count)++;
 
-                // Save the updated loans to the file
+                // Save the updated emprestimos to the file
                 guardar_emprestimo("emprestimos.csv", *emprestimos, *emprestimo_count);
                 return;
             } else {

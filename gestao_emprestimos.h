@@ -4,6 +4,7 @@
 #include <time.h> // Para o uso de time_t
 #include "gestao_livros.h"
 
+
 // Declaração das estruturas
 
 
@@ -15,8 +16,8 @@ typedef struct {
     char titulo[MAX_TITULO];
     char autor[MAX_AUTOR];
     char genero[MAX_GENERO];
-    int copias_emprestadas;
     int copias;
+    int copias_emprestadas;
     char user[MAX_UTILIZADOR];
     int copias_atuais;
     int is_devolvido;
@@ -28,6 +29,15 @@ typedef struct {
     char nome[100];
     int count;
 } UserCount;
+
+typedef struct {
+    char titulo[50];
+    int count;
+} LivroCount;
+
+
+// prototipo carrergar emprestimos
+void carregar_emprestimos(const char *filename, Emprestimo **emprestimos, int *emprestimo_count);
 
 // Prototipo da função para copiar dados de livros para emprestimos
 void copiarDadosLivrosParaEmprestimos(const char *livrosFilePath, const char *emprestimosFilePath);
