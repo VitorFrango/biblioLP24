@@ -54,11 +54,17 @@ void livros_mais_emprestados(Emprestimo *emprestimos, int emprestimo_count) {
 
 
 void relatorio_livros_nao_devolvidos(Emprestimo *emprestimos, int emprestimo_count) {
-    printf("Livros não devolvidos:\n");
-    for (int i = 0; i < emprestimo_count; i++){
-        if (emprestimos[i].is_devolvido == 0)
+    // Carregar emprestimos
+    carregar_emprestimos("emprestimos.csv", &emprestimos, &emprestimo_count);
+
+    // Encontrar livros não devolvidos
+    for(int i = 0; i < emprestimo_count; i++) {
+        if(!emprestimos[i].is_devolvido) {
             printf("Livro: %s\n", emprestimos[i].titulo);
-        printf("Usuario: %s\n", emprestimos[i].user);
+            printf("Usuário: %s\n", emprestimos[i].user);
+            printf("Data de empréstimo: %s", ctime(&emprestimos[i].data_emprestimo));
+            printf("Data de devolução: %s", ctime(&emprestimos[i].data_devolucao));
+        }
     }
 }
 
