@@ -23,11 +23,12 @@ Para gestao_emprestimos.c:
 void test_emprestar_livro() {
     // Configuração
     Emprestimo emprestimo;
-    emprestimo.livro_id = 1;
-    emprestimo.usuario_id = 1;
+    emprestimo.id = 1;
+
 
     // Teste
-    int resultado = emprestar_livro(&emprestimo);
+
+    int resultado = empresta_livro(&emprestimo);
     assert(resultado == 0); // Espera-se que o empréstimo seja bem-sucedido
 }
 

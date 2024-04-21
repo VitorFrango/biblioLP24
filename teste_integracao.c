@@ -28,7 +28,9 @@ void test_integra_livro_emprestimo() {
     adicionar_livro(&livro);
 
     Emprestimo emprestimo;
-    emprestimo.livro_id = 1;
+    emprestimo.id = 1;
+    emprestimo.u
+    emprestimo.id = 1;
     emprestimo.usuario_id = 1;
 
     // Teste de integração
