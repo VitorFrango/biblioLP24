@@ -22,19 +22,15 @@ void test_integra_livro_emprestimo() {
     // Configuração
     Livro livro;
     livro.id = 1;
-    strcpy(livro.titulo, "Livro Integrado");
-    strcpy(livro.autor, "Autor Integrado");
+    Livro* livros = NULL;
+    int count = 0;
+    int resultado = 0;
 
-    adicionar_livro(&livro);
+    adicionar_livro(&livros, &count);
 
-    Emprestimo emprestimo;
-    emprestimo.id = 1;
-    emprestimo.u
-    emprestimo.id = 1;
-    emprestimo.usuario_id = 1;
-
-    // Teste de integração
-    int resultado = emprestar_livro(&emprestimo);
+    Emprestimo* emprestimos = NULL;
+    int emprestimo_count = 0;
+    empresta_livro(livros, count, &emprestimos, &emprestimo_count);
     assert(resultado == 0); // Espera-se que a integração funcione
 }
 

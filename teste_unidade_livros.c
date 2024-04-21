@@ -24,14 +24,12 @@ void test_adicionar_livro() {
     // Configuração
     Livro livro;
     livro.id = 1;
-    strcpy(livro.titulo, "Livro de Teste");
-    strcpy(livro.autor, "Autor de Teste");
+    Livro* livros = NULL;
+    int count = 0;
 
     // Teste
-    int resultado = adicionar_livro(&livro);
-    assert(resultado == 0); // Espera-se que a adição seja bem-sucedida
-
-    // Teardown (opcional, se necessário)
+    adicionar_livro(&livros, &count);
+    assert(count == 1); // Espera-se que a contagem de livros seja incrementada
 }
 
 int main() {

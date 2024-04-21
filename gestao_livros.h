@@ -16,6 +16,7 @@ typedef struct Livro {
     char autor[MAX_AUTOR];
     char genero[MAX_GENERO];
     int copias;
+    int copias_emprestadas;
 } Livro;
 
 void inicializar_biblioteca(const char *filename, Livro **livros, int *count);
