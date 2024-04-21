@@ -113,6 +113,7 @@ void menu_gestao_emprestimos(Livro **livros, int *livro_count, Emprestimo **empr
 
         switch (escolha) {
             case 1:
+                copiarDadosLivrosParaEmprestimos("livros.csv", "emprestimos.csv");
                 empresta_livro(*livros, *livro_count, emprestimos, emprestimo_count);
                 break;
             case 2:

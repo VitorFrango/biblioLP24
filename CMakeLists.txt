@@ -12,4 +12,5 @@ add_executable(biblioteca principal.c
         gestao_livros.h
         interface.c
         interface.h
+        main.c
 )

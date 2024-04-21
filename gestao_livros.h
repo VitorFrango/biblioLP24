@@ -6,8 +6,8 @@
 
 #define MAX_LINHA_TAM 100
 #define MAX_TITULO 100
-#define MAX_AUTOR 50
-#define MAX_GENERO 30
+#define MAX_AUTOR 100
+#define MAX_GENERO 50
 #define MAX_LINHA_TAM 100
 
 typedef struct Livro {

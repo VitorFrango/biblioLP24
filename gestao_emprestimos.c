@@ -1,63 +1,56 @@
-#include <time.h>
+#include "gestao_emprestimos.h"
+#include "gestao_livros.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
-#include "gestao_emprestimos.h"  // Assume que esse cabeçalho define 'Livro' e 'Emprestimo'
-#include "gestao_livros.h"
+void copiarDadosLivrosParaEmprestimos(const char *livrosFilePath, const char *emprestimosFilePath) {
+    FILE *livrosFile = fopen(livrosFilePath, "r");
+    FILE *emprestimosFile = fopen(emprestimosFilePath, "a");
 
-
-void inicializar_enorestimos(const char *filename, Livro **livros, int *count) {
-    FILE *file = fopen(filename, "r");
-    if (file == NULL) {
-        fprintf(stderr, "Erro ao abrir o arquivo %s.\n", filename);
+    if (!livrosFile || !emprestimosFile) {
+        printf("Erro ao abrir os arquivos.\n");
         return;
     }
 
-    char linha[MAX_LINHA_TAM];
-    *count = 0;
-    *livros = NULL;
+    Livro livro;
+    Emprestimo emprestimo;
 
-    Livro *temp;
+    while (fscanf(livrosFile, "%d,%99[^,],%99[^,],%49[^,],%d\n", &livro.id, livro.titulo, livro.autor, livro.genero, &livro.copias) == 5) {
+        emprestimo.id = livro.id;
+        strcpy(emprestimo.titulo, livro.titulo);
+        strcpy(emprestimo.autor, livro.autor);
+        strcpy(emprestimo.genero, livro.genero);
+        emprestimo.copias = livro.copias;
+        emprestimo.copias_emprestadas = 0;
+        strcpy(emprestimo.user, "Desconhecido");
+        emprestimo.copias_atuais = livro.copias;
+        emprestimo.is_devolvido = 0;
+        emprestimo.data_emprestimo = time(NULL);
+        emprestimo.data_devolucao = 0;
 
-    while (fgets(linha, sizeof(linha), file) != NULL) {
-        linha[strcspn(linha, "\n")] = 0;
-
-        temp = realloc(*livros, (*count + 1) * sizeof(Livro));
-        if (temp == NULL) {
-            fprintf(stderr, "Erro ao alocar memória para os livros.\n");
-            free(*livros);  // Liberar memória antes alocada
-            *livros = NULL;
-            goto cleanup;
-        }
-        *livros = temp;
-
-        memset(&(*livros)[*count], 0, sizeof(Livro));
-
-        int itemsRead = sscanf(linha, "%d, %[^,],%[^,],%[^,],%d",
-                               &(*livros)[*count].id,
-                               (*livros)[*count].titulo,
-                               (*livros)[*count].autor,
-                               (*livros)[*count].genero,
-                               &(*livros)[*count].copias);
-        if (itemsRead != 5) {
-            fprintf(stderr, "Linha malformada: %s\n", linha);
-            continue;
-        }
-
-        (*count)++;
+        fprintf(
+                emprestimosFile,
+                "%d,%s,%s,%s,%d,%d,%d,%s,%d,%ld,%ld\n",
+                emprestimo.id,
+                emprestimo.titulo,
+                emprestimo.autor,
+                emprestimo.genero,
+                emprestimo.copias_emprestadas,
+                emprestimo.copias,
+                emprestimo.copias_atuais,
+                emprestimo.user,
+                emprestimo.is_devolvido,
+                emprestimo.data_emprestimo,
+                emprestimo.data_devolucao
+        );
     }
 
-    cleanup:
-    if (ferror(file)) {
-        perror("Erro ao ler o arquivo");
-        free(*livros);
-        *livros = NULL;
-        *count = 0;
-    }
-
-    fclose(file);  // Fechar o arquivo em qualquer saída
+    fclose(livrosFile);
+    fclose(emprestimosFile);
 }
+
 
 void guardar_emprestimo(const char *filename, Emprestimo *emprestimos, int emprestimo_count) {
     FILE *file = fopen(filename, "w");
@@ -73,11 +66,16 @@ void guardar_emprestimo(const char *filename, Emprestimo *emprestimos, int empre
         strftime(buffer_devolucao, sizeof(buffer_devolucao), "%Y-%m-%d %H:%M:%S", localtime(&emprestimos[i].data_devolucao));
 
         // Grava no arquivo
-        fprintf(file, "%s,%s,%s,%s\n",
+        fprintf(file, "%s,%s,%s,%s,%d,%d,%s,%d,%d\n",
                 emprestimos[i].titulo,
-                emprestimos[i].user,
+                emprestimos[i].autor,
+                emprestimos[i].genero,
                 buffer_emprestimo,
-                buffer_devolucao);
+                emprestimos[i].copias,
+                emprestimos[i].copias_emprestadas,
+                emprestimos[i].user,
+                emprestimos[i].copias_atuais,
+                emprestimos[i].is_devolvido);
     }
 
     fclose(file);
