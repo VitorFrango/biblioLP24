@@ -24,9 +24,6 @@ O programa deve ser modular, com cada funcionalidade implementada num módulo se
  implementando testes de unidade e de integração.
 */
 
-
-
-
 #include "gestao_emprestimos.h"
 #include "gestao_livros.h"
 #include "interface.h"
@@ -41,8 +38,16 @@ int main() {
     Emprestimo *emprestimos = NULL; // Ponteiro para array de empréstimos
     int emprestimo_count = 0; // Contador de empréstimos
 
+    const char *livrosFilePath = "livros.csv";
+    const char *emprestimosFilePath = "emprestimos.csv";
+
+
     // Inicializa a biblioteca com os dados do arquivo livros.csv
     inicializar_biblioteca("livros.csv", &livros, &livro_count);
+    // Inicializa os empréstimos com os dados do arquivo emprestimos.cs
+
+    copiarDadosLivrosParaEmprestimos(livrosFilePath, emprestimosFilePath);
+
 
     exibir_menu_principal(&livros, &livro_count, &emprestimos, &emprestimo_count);
     menu_gestao_livros(&livros, &livro_count);

@@ -12,4 +12,8 @@ add_executable(biblioteca principal.c
         gestao_livros.h
         interface.c
         interface.h
+        main.c
+        teste_integracao.c
+        teste_unidade_livros.c
+        teste_unidade_emprestimos.c
 )

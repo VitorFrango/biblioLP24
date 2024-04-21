@@ -1,1 +1,88 @@
-Java Como Programar,telmo,2024-04-18 00:02:13,2024-04-25 00:02:13
+1,O nome da rosa,Umberto Eco,Literatura,0,1,1,Desconhecido,0,1970-01-01 01:00:00,1970-01-01 01:00:00
+2,Dom Casmurro,Machado de Assis,Literatura,0,1,1,Desconhecido,0,1970-01-01 01:00:00,1970-01-01 01:00:00
+3,Java Como Programar,Deitel,Informatica,0,1,1,Desconhecido,0,1970-01-01 01:00:00,1970-01-01 01:00:00
+4,Senhor dos Aneis,J. R. R. Tolkien,Literatura,0,1,1,Desconhecido,0,1970-01-01 01:00:00,1970-01-01 01:00:00
+5,Harry Potter,J. K. Rowling,Literatura,0,1,1,Desconhecido,0,1970-01-01 01:00:00,1970-01-01 01:00:00
+6,A menina que roubava livros,Markus Zusak,Literatura,0,1,1,Desconhecido,0,1970-01-01 01:00:00,1970-01-01 01:00:00
+7,Programacao em C,Dantas,Informatica,0,2,2,Desconhecido,0,1970-01-01 01:00:00,1970-01-01 01:00:00
+8,Estatistica,matematica,silabo,0,3,3,Desconhecido,0,1970-01-01 01:00:00,1970-01-01 01:00:00
+1,O nome da rosa,Umberto Eco,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+2,Dom Casmurro,Machado de Assis,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+3,Java Como Programar,Deitel,Informatica,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+4,Senhor dos Aneis,J. R. R. Tolkien,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+5,Harry Potter,J. K. Rowling,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+6,A menina que roubava livros,Markus Zusak,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+7,Programacao em C,Dantas,Informatica,0,2,2,Desconhecido,0,1970-01-01 ,1970-01-01 
+8,Estatistica,matematica,silabo,0,3,3,Desconhecido,0,1970-01-01 ,1970-01-01 
+1,O nome da rosa,Umberto Eco,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+2,Dom Casmurro,Machado de Assis,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+3,Java Como Programar,Deitel,Informatica,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+4,Senhor dos Aneis,J. R. R. Tolkien,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+5,Harry Potter,J. K. Rowling,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+6,A menina que roubava livros,Markus Zusak,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+7,Programacao em C,Dantas,Informatica,0,2,2,Desconhecido,0,1970-01-01 ,1970-01-01 
+8,Estatistica,matematica,silabo,0,3,3,Desconhecido,0,1970-01-01 ,1970-01-01 
+1,O nome da rosa,Umberto Eco,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+2,Dom Casmurro,Machado de Assis,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+3,Java Como Programar,Deitel,Informatica,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+4,Senhor dos Aneis,J. R. R. Tolkien,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+5,Harry Potter,J. K. Rowling,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+6,A menina que roubava livros,Markus Zusak,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+7,Programacao em C,Dantas,Informatica,0,2,2,Desconhecido,0,1970-01-01 ,1970-01-01 
+8,Estatistica,matematica,silabo,0,3,3,Desconhecido,0,1970-01-01 ,1970-01-01 
+1,O nome da rosa,Umberto Eco,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+2,Dom Casmurro,Machado de Assis,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+3,Java Como Programar,Deitel,Informatica,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+4,Senhor dos Aneis,J. R. R. Tolkien,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+5,Harry Potter,J. K. Rowling,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+6,A menina que roubava livros,Markus Zusak,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+7,Programacao em C,Dantas,Informatica,5,2,2,Desconhecido,0,1970-01-01 ,1970-01-01
+8,Estatistica,matematica,silabo,4,3,3,Desconhecido,0,1970-01-01 ,1970-01-01
+1,O nome da rosa,Umberto Eco,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+2,Dom Casmurro,Machado de Assis,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+3,Java Como Programar,Deitel,Informatica,1,1,1,Desconhecido,0,1970-01-01 ,1970-01-01
+4,Senhor dos Aneis,J. R. R. Tolkien,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+5,Harry Potter,J. K. Rowling,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+6,A menina que roubava livros,Markus Zusak,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+7,Programacao em C,Dantas,Informatica,0,2,2,Desconhecido,0,1970-01-01 ,1970-01-01 
+8,Estatistica,matematica,silabo,0,3,3,Desconhecido,0,1970-01-01 ,1970-01-01 
+1,O nome da rosa,Umberto Eco,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+2,Dom Casmurro,Machado de Assis,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+3,Java Como Programar,Deitel,Informatica,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+4,Senhor dos Aneis,J. R. R. Tolkien,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+5,Harry Potter,J. K. Rowling,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+6,A menina que roubava livros,Markus Zusak,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+7,Programacao em C,Dantas,Informatica,0,2,2,Desconhecido,0,1970-01-01 ,1970-01-01 
+8,Estatistica,matematica,silabo,0,3,3,Desconhecido,0,1970-01-01 ,1970-01-01 
+1,O nome da rosa,Umberto Eco,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+2,Dom Casmurro,Machado de Assis,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+3,Java Como Programar,Deitel,Informatica,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+4,Senhor dos Aneis,J. R. R. Tolkien,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+5,Harry Potter,J. K. Rowling,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+6,A menina que roubava livros,Markus Zusak,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+7,Programacao em C,Dantas,Informatica,0,2,2,Desconhecido,0,1970-01-01 ,1970-01-01 
+8,Estatistica,matematica,silabo,0,3,3,Desconhecido,0,1970-01-01 ,1970-01-01 
+1,O nome da rosa,Umberto Eco,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+2,Dom Casmurro,Machado de Assis,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+3,Java Como Programar,Deitel,Informatica,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+4,Senhor dos Aneis,J. R. R. Tolkien,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+5,Harry Potter,J. K. Rowling,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+6,A menina que roubava livros,Markus Zusak,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+7,Programacao em C,Dantas,Informatica,0,2,2,Desconhecido,0,1970-01-01 ,1970-01-01 
+8,Estatistica,matematica,silabo,0,3,3,Desconhecido,0,1970-01-01 ,1970-01-01 
+1,O nome da rosa,Umberto Eco,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+2,Dom Casmurro,Machado de Assis,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+3,Java Como Programar,Deitel,Informatica,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+4,Senhor dos Aneis,J. R. R. Tolkien,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+5,Harry Potter,J. K. Rowling,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+6,A menina que roubava livros,Markus Zusak,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+7,Programacao em C,Dantas,Informatica,0,2,2,Desconhecido,0,1970-01-01 ,1970-01-01 
+8,Estatistica,matematica,silabo,0,3,3,Desconhecido,0,1970-01-01 ,1970-01-01 
+1,O nome da rosa,Umberto Eco,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+2,Dom Casmurro,Machado de Assis,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+3,Java Como Programar,Deitel,Informatica,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+4,Senhor dos Aneis,J. R. R. Tolkien,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+5,Harry Potter,J. K. Rowling,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+6,A menina que roubava livros,Markus Zusak,Literatura,0,1,1,Desconhecido,0,1970-01-01 ,1970-01-01 
+7,Programacao em C,Dantas,Informatica,0,2,2,Desconhecido,0,1970-01-01 ,1970-01-01 
+8,Estatistica,matematica,silabo,0,3,3,Desconhecido,0,1970-01-01 ,1970-01-01 

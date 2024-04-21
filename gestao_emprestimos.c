@@ -1,81 +1,94 @@
-#include <time.h>
+#include "gestao_emprestimos.h"
+#include "gestao_livros.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
-#include "gestao_emprestimos.h"  // Assume que esse cabeçalho define 'Livro' e 'Emprestimo'
-#include "gestao_livros.h"
+int copias_atuais(int copias, int copias_emprestadas) {
+    return copias - copias_emprestadas;
+}
 
+void copiarDadosLivrosParaEmprestimos(const char *livrosFilePath, const char *emprestimosFilePath) {
+    FILE *livrosFile = fopen(livrosFilePath, "r");
+    FILE *emprestimosFile = fopen(emprestimosFilePath, "a");
 
-void inicializar_enorestimos(const char *filename, Livro **livros, int *count) {
-    FILE *file = fopen(filename, "r");
-    if (file == NULL) {
-        fprintf(stderr, "Erro ao abrir o arquivo %s.\n", filename);
+    if (!livrosFile || !emprestimosFile) {
+        printf("Erro ao abrir os arquivos.\n");
         return;
     }
 
-    char linha[MAX_LINHA_TAM];
-    *count = 0;
-    *livros = NULL;
+    Livro livro;
+    Emprestimo emprestimo;
+    char buffer_emprestimo[20];  // Buffer to hold date in YYYY-MM-DD HH:MM:SS format
+    char buffer_devolucao[20];   // Buffer to hold date in YYYY-MM-DD HH:MM:SS format
 
-    Livro *temp;
+    while (fscanf(livrosFile, "%d,%99[^,],%99[^,],%49[^,],%d\n", &livro.id, livro.titulo, livro.autor, livro.genero, &livro.copias) == 5) {
+        emprestimo.id = livro.id;
+        strcpy(emprestimo.titulo, livro.titulo);
+        strcpy(emprestimo.autor, livro.autor);
+        strcpy(emprestimo.genero, livro.genero);
+        emprestimo.copias = livro.copias;
+        emprestimo.copias_emprestadas = 0;
+        strcpy(emprestimo.user, "Desconhecido");
+        emprestimo.copias_atuais = livro.copias;
+        emprestimo.is_devolvido = 0;
+        emprestimo.data_emprestimo = time(NULL);
+        emprestimo.data_devolucao = 0;
 
-    while (fgets(linha, sizeof(linha), file) != NULL) {
-        linha[strcspn(linha, "\n")] = 0;
+        // Convert time_t to struct tm
+        struct tm *tm_emprestimo = localtime(&emprestimo.data_emprestimo);
+        struct tm *tm_devolucao = localtime(&emprestimo.data_devolucao);
 
-        temp = realloc(*livros, (*count + 1) * sizeof(Livro));
-        if (temp == NULL) {
-            fprintf(stderr, "Erro ao alocar memória para os livros.\n");
-            free(*livros);  // Liberar memória antes alocada
-            *livros = NULL;
-            goto cleanup;
-        }
-        *livros = temp;
+        // Format time as string
+        strftime(buffer_emprestimo, sizeof(buffer_emprestimo), "%Y-%m-%d ", tm_emprestimo);
+        strftime(buffer_devolucao, sizeof(buffer_devolucao), "%Y-%m-%d ", tm_devolucao);
 
-        memset(&(*livros)[*count], 0, sizeof(Livro));
-
-        int itemsRead = sscanf(linha, "%d, %[^,],%[^,],%[^,],%d",
-                               &(*livros)[*count].id,
-                               (*livros)[*count].titulo,
-                               (*livros)[*count].autor,
-                               (*livros)[*count].genero,
-                               &(*livros)[*count].copias);
-        if (itemsRead != 5) {
-            fprintf(stderr, "Linha malformada: %s\n", linha);
-            continue;
-        }
-
-        (*count)++;
+        fprintf(
+                emprestimosFile,
+                "%d,%s,%s,%s,%d,%d,%d,%s,%d,%s,%s\n",
+                emprestimo.id,
+                emprestimo.titulo,
+                emprestimo.autor,
+                emprestimo.genero,
+                emprestimo.copias_emprestadas,
+                emprestimo.copias,
+                emprestimo.copias_atuais,
+                emprestimo.user,
+                emprestimo.is_devolvido,
+                buffer_emprestimo,
+                buffer_devolucao
+        );
     }
 
-    cleanup:
-    if (ferror(file)) {
-        perror("Erro ao ler o arquivo");
-        free(*livros);
-        *livros = NULL;
-        *count = 0;
-    }
-
-    fclose(file);  // Fechar o arquivo em qualquer saída
+    fclose(livrosFile);
+    fclose(emprestimosFile);
 }
+
 
 void guardar_emprestimo(const char *filename, Emprestimo *emprestimos, int emprestimo_count) {
     FILE *file = fopen(filename, "w");
     if (file == NULL) {
-        perror("Erro ao abrir o arquivo");
+        printf("Erro ao abrir o arquivo %s.\n", filename);
         return;
     }
-    char buffer_emprestimo[20], buffer_devolucao[20];  // Para armazenar as datas formatadas
-    for (int i = 0; i < emprestimo_count; i++) {
-        // Formata a data de empréstimo
-        strftime(buffer_emprestimo, sizeof(buffer_emprestimo), "%Y-%m-%d %H:%M:%S", localtime(&emprestimos[i].data_emprestimo));
-        // Formata a data de devolução
-        strftime(buffer_devolucao, sizeof(buffer_devolucao), "%Y-%m-%d %H:%M:%S", localtime(&emprestimos[i].data_devolucao));
 
-        // Grava no arquivo
-        fprintf(file, "%s,%s,%s,%s\n",
+    char buffer_emprestimo[11];  // Buffer to hold date in YYYY-MM-DD format
+    char buffer_devolucao[11];   // Buffer to hold date in YYYY-MM-DD format
+
+    for (int i = 0; i < emprestimo_count; i++) {
+        strftime(buffer_emprestimo, sizeof(buffer_emprestimo), "%Y-%m-%d", localtime(&emprestimos[i].data_emprestimo));
+        strftime(buffer_devolucao, sizeof(buffer_devolucao), "%Y-%m-%d", localtime(&emprestimos[i].data_devolucao));
+
+        fprintf(file, "%d,%s,%s,%s,%d,%d,%s,%d,%s,%s\n",
+                emprestimos[i].id,
                 emprestimos[i].titulo,
+                emprestimos[i].autor,
+                emprestimos[i].genero,
+                emprestimos[i].copias,
+                emprestimos[i].copias_emprestadas,
                 emprestimos[i].user,
+                emprestimos[i].copias_atuais,
                 buffer_emprestimo,
                 buffer_devolucao);
     }
@@ -84,105 +97,152 @@ void guardar_emprestimo(const char *filename, Emprestimo *emprestimos, int empre
 }
 
 void empresta_livro(Livro *livros, int count, Emprestimo **emprestimos, int *emprestimo_count) {
-    int livro_id;
-    printf("Digite o ID do livro a ser emprestado: ");
-    scanf("%d", &livro_id);
-    getchar();  // Limpa o buffer do stdin
-    if (livro_id < 0 || livro_id >= count) {
-        printf("ID de livro inválido.\n");
-        return;
-    }
-    if (livros[livro_id].copias <= 0) {
-        printf("Livro sem cópias disponíveis.\n");
-        return;
-    }
-    livros[livro_id].copias--;
-    Emprestimo *temp = realloc(*emprestimos, (*emprestimo_count + 1) * sizeof(Emprestimo));
-    if (temp == NULL) {
-        fprintf(stderr, "Erro ao alocar memória para o empréstimo.\n");
-        return;
-    }
-    *emprestimos = temp;
-    strcpy((*emprestimos)[*emprestimo_count].titulo, livros[livro_id].titulo);
-    printf("Digite o nome do usuário: ");
-    fgets((*emprestimos)[*emprestimo_count].user, MAX_UTILIZADOR, stdin);
-    (*emprestimos)[*emprestimo_count].user[strcspn((*emprestimos)[*emprestimo_count].user, "\n")] = '\0';  // Remove newline
-    time_t current_time;
-    time(&current_time);
-    (*emprestimos)[*emprestimo_count].data_emprestimo = current_time;
-    (*emprestimos)[*emprestimo_count].data_devolucao = current_time + 604800;  // 7 dias
-    (*emprestimo_count)++;
-
-    // Grava os empréstimos atualizados no arquivo
-    guardar_emprestimo("emprestimos.csv", *emprestimos, *emprestimo_count);
-}
-
-void devolver_livro(Livro *livros, int count, Emprestimo **emprestimos, int *emprestimo_count) {
     char titulo[MAX_TITULO];
-    printf("Digite o título do livro a ser devolvido: ");
-    fgets(titulo, MAX_TITULO, stdin);
-    titulo[strcspn(titulo, "\n")] = '\0';  // Remove newline
-    for (int i = 0; i < *emprestimo_count; i++) {
-        if (strcmp((*emprestimos)[i].titulo, titulo) == 0) {
-            for (int j = 0; j < count; j++) {
-                if (strcmp(livros[j].titulo, titulo) == 0) {
-                    livros[j].copias++;
-                    break;
+    char user[MAX_UTILIZADOR];
+
+    printf("Digite o título do livro a ser emprestado: \n");
+    while(getchar() != '\n');  // limpa o buffer do stdin
+    scanf("%[^\n]", titulo);
+    getchar();  // limpa o buffer do stdin
+    printf("Digite o nome do locatario: \n");
+    scanf("%[^\n]", user);
+
+    int book_found = 0;  // Flag to check if the book was found
+
+    for (int i = 0; i < count; i++) {
+        if (strcmp(livros[i].titulo, titulo) == 0) {
+            book_found = 1;  // Book was found
+            if (livros[i].copias > 0) {
+            }
+        }
+        if (strcmp(livros[i].titulo, titulo) == 0) {
+            if (livros[i].copias > 0) {
+                livros[i].copias--;
+                Emprestimo *temp = realloc(*emprestimos, (*emprestimo_count + 1) * sizeof(Emprestimo));
+                if (temp == NULL) {
+                    fprintf(stderr, "Erro ao alocar memória para o empréstimo.\n");
+                    return;
                 }
-            }
-            // Remove o empréstimo devolvido do array
-            for (int k = i; k < *emprestimo_count - 1; k++) {
-                (*emprestimos)[k] = (*emprestimos)[k + 1];
-            }
-            Emprestimo *temp = realloc(*emprestimos, (*emprestimo_count - 1) * sizeof(Emprestimo));
-            if (temp == NULL && *emprestimo_count > 1) {
-                fprintf(stderr, "Erro ao ajustar memória para o empréstimo.\n");
+                *emprestimos = temp;
+                (*emprestimos)[*emprestimo_count].id = livros[i].id;
+                strcpy((*emprestimos)[*emprestimo_count].titulo, livros[i].titulo);
+                strcpy((*emprestimos)[*emprestimo_count].autor, livros[i].autor);
+                strcpy((*emprestimos)[*emprestimo_count].genero, livros[i].genero);
+                (*emprestimos)[*emprestimo_count].copias = livros[i].copias;
+                (*emprestimos)[*emprestimo_count].copias_emprestadas = 1;
+                strcpy((*emprestimos)[*emprestimo_count].user, user);
+                (*emprestimos)[*emprestimo_count].copias_atuais = copias_atuais(livros[i].copias, 1);
+                (*emprestimos)[*emprestimo_count].is_devolvido = 0;
+                (*emprestimos)[*emprestimo_count].data_emprestimo = time(NULL);
+                (*emprestimos)[*emprestimo_count].data_devolucao = time(NULL) + 604800;  // 7 dias
+                (*emprestimo_count)++;
+
+                // Save the updated emprestimos to the file
+                guardar_emprestimo("emprestimos.csv", *emprestimos, *emprestimo_count);
+                return;
+            } else {
+                printf("Livro não disponível para empréstimo.\n");
                 return;
             }
-            *emprestimos = temp;
-            (*emprestimo_count)--;
+        }
+            }
+
+            if (!book_found) {
+                printf("Livro não encontrado.\n");
+            }
+        }
+
+void carregar_emprestimos(const char *filename, Emprestimo **emprestimos, int *emprestimo_count) {
+    FILE *file = fopen(filename, "r");
+    if (file == NULL) {
+        printf("Erro ao abrir o arquivo %s.\n", filename);
+        return;
+    }
+
+    Emprestimo temp;
+    while (fscanf(file, "%d,%[^,],%[^,],%[^,],%d,%d,%[^,],%d,%ld,%ld\n",
+                  &temp.id, temp.titulo, temp.autor, temp.genero, &temp.copias,
+                  &temp.copias_emprestadas, temp.user, &temp.copias_atuais,
+                  &temp.data_emprestimo, &temp.data_devolucao) == 10) {
+        Emprestimo *new_emprestimos = realloc(*emprestimos, (*emprestimo_count + 1) * sizeof(Emprestimo));
+        if (new_emprestimos == NULL) {
+            printf("Erro ao alocar memória para o empréstimo.\n");
+            fclose(file);
             return;
         }
+        *emprestimos = new_emprestimos;
+        (*emprestimos)[*emprestimo_count] = temp;
+        (*emprestimo_count)++;
     }
-    printf("Livro não encontrado.\n");
+
+    fclose(file);
+}
+void devolver_livro(Livro *livros, int count, Emprestimo **emprestimos, int *emprestimo_count) {
+    carregar_emprestimos("emprestimos.csv", emprestimos, emprestimo_count);
+    printf("Digite o título do livro a ser devolvido: ");
+    char titulo[MAX_TITULO];
+    while(getchar() != '\n');  // limpa o buffer do stdin
+    scanf("%[^\n]", titulo);
+    getchar();  // limpa o buffer do stdin
+    if (*emprestimo_count == 0) {
+        printf("Nenhum livro emprestado.\n");
+        return;
+    } else {
+        int book_found_in_livros = 0;
+        for (int j = 0; j < count; j++) {
+            if (strcmp(livros[j].titulo, titulo) == 0) {
+                livros[j].copias++;
+                book_found_in_livros = 1;
+                break;
+            }
+        }
+        if (!book_found_in_livros) {
+            printf("Livro não encontrado na biblioteca.\n");
+            return;
+        }
+        for (int i = 0; i < *emprestimo_count; i++) {
+            if (strcmp((*emprestimos)[i].titulo, titulo) == 0) {
+                // Remove o empréstimo do array
+                for (int k = i; k < *emprestimo_count - 1; k++) {
+                    (*emprestimos)[k] = (*emprestimos)[k + 1];
+                }
+                Emprestimo *temp = realloc(*emprestimos, (*emprestimo_count - 1) * sizeof(Emprestimo));
+                if (temp == NULL && *emprestimo_count > 1) {
+                    printf("Erro ao alocar memória para o empréstimo.\n");
+                    exit(1);
+                }
+                *emprestimos = temp;
+                (*emprestimo_count)--;
+                printf("Livro devolvido com sucesso.\n");
+                guardar_emprestimo("emprestimos.csv", *emprestimos, *emprestimo_count);
+                return;
+            }
+        }
+        printf("Livro não encontrado nos empréstimos.\n");
+        guardar_emprestimo("emprestimos.csv", *emprestimos, *emprestimo_count);
+    }
 }
 
 void renovar_emprestimo(Emprestimo *emprestimos, int emprestimo_count) {
-    int emprestimo_id;
-    printf("Digite o ID do empréstimo a ser renovado: ");
-    scanf("%d", &emprestimo_id);
-    getchar();  // Limpa o buffer do stdin
-
-    if (emprestimo_id >= 0 && emprestimo_id < emprestimo_count) {
-        emprestimos[emprestimo_id].data_devolucao += 604800;  // Renova por mais 7 dias
+    carregar_emprestimos("emprestimos.csv", &emprestimos, &emprestimo_count);
+    printf("Digite o título do livro a ser renovado: ");
+    char titulo[MAX_TITULO];
+    while(getchar() != '\n');  // limpa o buffer do stdin
+    scanf("%[^\n]", titulo);
+    getchar();  // limpa o buffer do stdin
+    if (emprestimo_count == 0) {
+        printf("Nenhum livro emprestado.\n");
+        return;
     } else {
-        printf("ID de empréstimo inválido.\n");
-    }
-}
-
-void atualizar_emprestimo(Livro *livros, int livro_count, Emprestimo **emprestimos, int *emprestimo_count) {
-    time_t current_time;
-    time(&current_time);
-    for (int i = 0; i < *emprestimo_count; i++) {
-        if (current_time > (*emprestimos)[i].data_devolucao) {
-            for (int j = 0; j < livro_count; j++) {
-                if (strcmp(livros[j].titulo, (*emprestimos)[i].titulo) == 0) {
-                    livros[j].copias++;
-                    break;
-                }
+        for (int i = 0; i < emprestimo_count; i++) {
+            if (strcmp(emprestimos[i].titulo, titulo) == 0) {
+                emprestimos[i].data_devolucao += 604800;  // Adiciona mais 7 dias
+                printf("Empréstimo renovado com sucesso.\n");
+                guardar_emprestimo("emprestimos.csv", emprestimos, emprestimo_count);
+                return;
             }
-            // Remove o empréstimo vencido do array
-            for (int k = i; k < *emprestimo_count - 1; k++) {
-                (*emprestimos)[k] = (*emprestimos)[k + 1];
-            }
-            Emprestimo *temp = realloc(*emprestimos, (*emprestimo_count - 1) * sizeof(Emprestimo));
-            if (temp == NULL && *emprestimo_count > 1) {
-                printf("Erro ao alocar memória para o empréstimo.\n");
-                exit(1);
-            }
-            *emprestimos = temp;
-            (*emprestimo_count)--;
         }
+        printf("Livro não encontrado nos empréstimos.\n");
+        guardar_emprestimo("emprestimos.csv", emprestimos, emprestimo_count);
     }
 }
-
