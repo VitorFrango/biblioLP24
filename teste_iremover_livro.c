@@ -10,31 +10,27 @@ Exemplo para Testes de Integração:
 
 Este teste integraria o processo de adicionar um livro e emprestá-lo.
  * */
-
-#include <stdio.h>
 #include <string.h>
-
 #include <assert.h>
-#include "gestao_livros.h"
+#include <stdlib.h>
 #include "gestao_emprestimos.h"
+#include "gestao_livros.h"
 
-void test_integra_livro_emprestimo() {
-    // Configuração
+void test_remover_livro() {
     Livro livro;
     livro.id = 1;
-    Livro* livros = NULL;
-    int count = 0;
-    int resultado = 0;
 
-    adicionar_livro(&livros, &count);
+    Livro *livros = (Livro *) malloc(sizeof(Livro) * 6);
+    livros[5] = livro;
 
-    Emprestimo* emprestimos = NULL;
-    int emprestimo_count = 0;
-    empresta_livro(livros, count, &emprestimos, &emprestimo_count);
-    assert(resultado == 0); // Espera-se que a integração funcione
+    int contador_livro = 6;
+
+    remover_livro(&livros, 1, &contador_livro);
+
+    assert(contador_livro == 5);
 }
 
 int main() {
-    test_integra_livro_emprestimo();
+    test_remover_livro();
     return 0;
 }
