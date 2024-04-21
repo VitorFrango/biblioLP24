@@ -24,9 +24,6 @@ O programa deve ser modular, com cada funcionalidade implementada num módulo se
  implementando testes de unidade e de integração.
 */
 
-
-
-
 #include "gestao_emprestimos.h"
 #include "gestao_livros.h"
 #include "interface.h"

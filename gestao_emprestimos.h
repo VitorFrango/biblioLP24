@@ -32,8 +32,8 @@ typedef struct {
 // Prototipo da função para copiar dados de livros para emprestimos
 void copiarDadosLivrosParaEmprestimos(const char *livrosFilePath, const char *emprestimosFilePath);
 
-void inicializar_emprestimos(const char *filename, Livro **livros, int *count);
-void empresta_livro(Livro *livros, int count, Emprestimo **emprestimos, int *emprestimo_count);
+//void inicializar_emprestimos(const char *filename, Livro **livros, int *count);
+void devolver_livro(Livro *livros, int count, Emprestimo **emprestimos, int *emprestimo_count);
 void guardar_emprestimo(const char *filename, Emprestimo *emprestimos, int emprestimo_count);
 //void atualizar_emprestimo(Livro *livros, int livro_count, Emprestimo **emprestimos, int *emprestimo_count);
 void renovar_emprestimo(Emprestimo *emprestimos, int emprestimo_count);

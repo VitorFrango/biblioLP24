@@ -24,6 +24,7 @@ void editar_livro(Livro *livros, int count, int id);
 void pesquisar_livros(const char *filename, const char *titulo_procura);
 
 // Protótipos de funções para a gestão de empréstimos
+void empresta_livro(Livro *livros, int count, Emprestimo **emprestimos, int *emprestimo_count);
 void remover_livro_por_id(Livro **livros, int *count, int id);
 void devolver_livro(Livro *livros, int livro_count, Emprestimo **emprestimos, int *emprestimo_count);
 void renovar_emprestimo(Emprestimo *emprestimos, int emprestimo_count);

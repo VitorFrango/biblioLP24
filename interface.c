@@ -74,7 +74,7 @@ void menu_gestao_livros(Livro **livros, int *livro_count) {
                 int id;
                 printf("ID do livro a editar: ");
                 scanf("%d", &id);
-                editar_livro(livros, *livro_count,id);
+                editar_livro(*livros, *livro_count, id);
             }
                 break;
             case 4:
@@ -105,7 +105,7 @@ void menu_gestao_emprestimos(Livro **livros, int *livro_count, Emprestimo **empr
         printf("1. Emprestar livro\n");
         printf("2. Devolver livro\n");
         printf("3. Renovar empréstimo\n");
-        printf("4. GUardar empréstimos\n");
+        printf("4. Guardar empréstimos\n");
         printf("5. Voltar ao menu principal\n");
         printf("0. Sair\n");
         printf("Escolha uma opção: ");
