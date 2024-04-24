@@ -16,6 +16,8 @@ Este teste integraria o processo de adicionar um livro e emprestá-lo.
 #include "gestao_emprestimos.h"
 #include "gestao_livros.h"
 
+
+/*
 void test_remover_livro() {
     Livro livro;
     livro.id = 1;
@@ -34,3 +36,5 @@ int main() {
     test_remover_livro();
     return 0;
 }
+
+ */

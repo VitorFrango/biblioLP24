@@ -35,6 +35,8 @@ typedef struct {
     int count;
 } LivroCount;
 
+
+
 // Prototipo da função para emprestar livro
 void empresta_livro(Livro *livros, int count, Emprestimo **emprestimos, int *emprestimo_count);
 

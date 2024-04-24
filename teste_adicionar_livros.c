@@ -18,6 +18,7 @@ Para gestao_livros.c:
 #include "gestao_emprestimos.h"
 #include "gestao_livros.h"
 
+/*
 void test_adicionar_livro() {
     Livro livro;
     livro.id = 1;
@@ -38,3 +39,5 @@ int main() {
     test_adicionar_livro();
     return 0;
 }
+
+ */

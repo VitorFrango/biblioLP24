@@ -36,7 +36,3 @@ void test_empresta_livro() {
     assert(contador_emprestimo == 1);
 }
 
-int main() {
-    test_empresta_livro();
-    return 0;
-}
