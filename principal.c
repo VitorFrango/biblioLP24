@@ -42,8 +42,8 @@ int  main() {
 
     // Inicializa a biblioteca com os dados do arquivo livros.csv
     inicializar_biblioteca("livros.csv", &livros, &livro_count);
-    // Inicializa os empréstimos com os dados do arquivo emprestimos.cs
-    copiarDadosLivrosParaEmprestimos("livros.csv", "emprestimos.csv", "posFile.txt", emprestimo_count);
+
+
 
     // Exibe o menu principal
 

@@ -30,6 +30,7 @@ typedef struct Emprestimo {
     time_t data_devolucao;
 }Emprestimo;
 
+
 typedef struct {
     char nome[MAX_UTILIZADOR];
     int count;
@@ -40,7 +41,6 @@ void copiarDadosLivrosParaEmprestimos(const char *livrosFilePath, const char *em
 void carregar_emprestimos(const char *filename, Emprestimo **emprestimos, int *emprestimo_count);
 void empresta_livro(Livro *livros, int count, Emprestimo **emprestimos, int *emprestimo_count);
 void guardar_emprestimo(const char *filename, Emprestimo *emprestimos, int emprestimo_count);
-void atualizar_emprestimo(Livro *livros, int livro_count, Emprestimo **emprestimos, int *emprestimo_count);
 void renovar_emprestimo(Emprestimo *emprestimos, int emprestimo_count);
 void devolver_livro(Livro *livros, int count, Emprestimo **emprestimos, int *emprestimo_count);
 

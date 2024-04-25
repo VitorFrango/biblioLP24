@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>  // Para `strerror`
 
 #include "gera_relatorios.h"
 

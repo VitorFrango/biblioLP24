@@ -15,7 +15,7 @@ typedef struct LivroCount {
     int count;
 } LivroCount;
 
-
+void carregar_emprestimos(const char *filename, Emprestimo **emprestimos, int *emprestimo_count);
 void livros_mais_emprestados(Emprestimo *emprestimos, int emprestimo_count);
 void locatarios_com_mais_livros_emprestados(Emprestimo *emprestimos, int emprestimo_count);
 void relatorio_livros_nao_devolvidos(Emprestimo *emprestimos, int emprestimo_count);
