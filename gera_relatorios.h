@@ -10,6 +10,10 @@
 #include "gestao_emprestimos.h"
 #include "gestao_livros.h"
 
+typedef struct LivroCount {
+    char titulo[MAX_TITULO];
+    int count;
+} LivroCount;
 
 
 void livros_mais_emprestados(Emprestimo *emprestimos, int emprestimo_count);

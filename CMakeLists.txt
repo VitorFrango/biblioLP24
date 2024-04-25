@@ -4,9 +4,14 @@ project(biblioteca C)
 set(CMAKE_C_STANDARD 11)
 
 add_executable(biblioteca principal.c
-        principal.c
+        gestao_emprestimos.h
         gestao_emprestimos.c
+        gera_relatorios.h
         gera_relatorios.c
         gestao_livros.c
+        gestao_livros.h
         interface.c
-        main.c)
+        interface.h
+        main.c
+
+)

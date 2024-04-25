@@ -167,12 +167,12 @@ void empresta_livro(Livro *livros, int count, Emprestimo **emprestimos, int *emp
                 return;
             }
         }
-            }
+    }
 
-            if (!book_found) {
-                printf("Livro não encontrado.\n");
-            }
-        }
+    if (!book_found) {
+        printf("Livro não encontrado.\n");
+    }
+}
 
 
 void carregar_emprestimos(const char *filename, Emprestimo **emprestimos, int *emprestimo_count) {

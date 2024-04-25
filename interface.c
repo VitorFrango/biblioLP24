@@ -25,9 +25,7 @@ void exibir_menu_principal(Livro **livros, int *livro_count, Emprestimo **empres
                 menu_gestao_livros(livros, livro_count);
                 break;
             case 2:
-                copiarDadosLivrosParaEmprestimos("livros.csv", "emprestimos.csv", "posFile.txt", *emprestimo_count);
                 menu_gestao_emprestimos(livros, livro_count, emprestimos, emprestimo_count);
-
                 break;
             case 3:
                 menu_relatorios(emprestimos, emprestimo_count);
@@ -76,7 +74,7 @@ void menu_gestao_livros(Livro **livros, int *livro_count) {
                 int id;
                 printf("ID do livro a editar: ");
                 scanf("%d", &id);
-                editar_livro(*livros, *livro_count, id);
+                editar_livro(livros, *livro_count,id);
             }
                 break;
             case 4:
@@ -107,7 +105,7 @@ void menu_gestao_emprestimos(Livro **livros, int *livro_count, Emprestimo **empr
         printf("1. Emprestar livro\n");
         printf("2. Devolver livro\n");
         printf("3. Renovar empréstimo\n");
-        printf("4. Guardar empréstimos\n");
+        printf("4. GUardar empréstimos\n");
         printf("5. Voltar ao menu principal\n");
         printf("0. Sair\n");
         printf("Escolha uma opção: ");
@@ -115,11 +113,9 @@ void menu_gestao_emprestimos(Livro **livros, int *livro_count, Emprestimo **empr
 
         switch (escolha) {
             case 1:
-                copiarDadosLivrosParaEmprestimos("livros.csv", "emprestimos.csv", "posFile.txt", *emprestimo_count);
                 empresta_livro(*livros, *livro_count, emprestimos, emprestimo_count);
                 break;
             case 2:
-
                 devolver_livro(*livros, *livro_count, emprestimos, emprestimo_count);
                 break;
             case 3:
@@ -156,12 +152,13 @@ void menu_relatorios(Emprestimo **emprestimos, int *emprestimo_count) {
         switch (escolha) {
             case 1:
                 livros_mais_emprestados(*emprestimos, *emprestimo_count);
+
                 break;
             case 2:
                 relatorio_livros_nao_devolvidos(*emprestimos, *emprestimo_count);
                 break;
             case 3:
-                locatarios_com_mais_livros_emprestados(emprestimos, *emprestimo_count);
+                //locatarios_com_mais_emprestimos(*emprestimos, *emprestimo_count);
                 break;
             case 4:
                 exibir_menu_principal(NULL, NULL, emprestimos, emprestimo_count);

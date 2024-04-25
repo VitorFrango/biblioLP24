@@ -8,6 +8,7 @@
 #include "gestao_livros.h"
 #include "gestao_emprestimos.h"
 #include "gera_relatorios.h"
+#include "interface.h"
 
 
 
@@ -15,7 +16,6 @@ void exibir_menu_principal(Livro **livros, int *livro_count, Emprestimo **empres
 void menu_gestao_livros(Livro **livros, int *livro_count);
 void menu_gestao_emprestimos(Livro **livros, int *livro_count, Emprestimo **emprestimos, int *emprestimo_count);
 void menu_relatorios(Emprestimo **emprestimos, int *emprestimo_count);
-
 
 // Protótipos de funções para a gestão de livros
 void adicionar_livro(Livro **livros, int *livro_count);

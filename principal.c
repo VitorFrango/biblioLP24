@@ -29,8 +29,8 @@ O programa deve ser modular, com cada funcionalidade implementada num módulo se
 #include "interface.h"
 
 
-int main() {
 
+int  main() {
 
     Livro *livros; // Ponteiro para array de livros
     livros = NULL; // Inicializa ponteiro com NULL
@@ -45,13 +45,11 @@ int main() {
     // Inicializa os empréstimos com os dados do arquivo emprestimos.cs
     copiarDadosLivrosParaEmprestimos("livros.csv", "emprestimos.csv", "posFile.txt", emprestimo_count);
 
-
+    // Exibe o menu principal
 
     exibir_menu_principal(&livros, &livro_count, &emprestimos, &emprestimo_count);
     menu_gestao_livros(&livros, &livro_count);
     menu_gestao_emprestimos(&livros, &livro_count, &emprestimos, &emprestimo_count);
     menu_relatorios(&emprestimos, &emprestimo_count);
-
-
 
 }
