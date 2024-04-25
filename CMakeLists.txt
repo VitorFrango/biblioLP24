@@ -1,6 +1,11 @@
 cmake_minimum_required(VERSION 3.27)
 project(biblioteca C)
 
+
+
+include_directories(/opt/homebrew/Cellar/cunit/include)
+
+
 set(CMAKE_C_STANDARD 11)
 
 add_executable(biblioteca principal.c
@@ -13,5 +18,6 @@ add_executable(biblioteca principal.c
         interface.c
         interface.h
         main.c
+        testes/teste_gestao_livros.c
 
 )

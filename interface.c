@@ -164,10 +164,11 @@ void menu_relatorios(Emprestimo **emprestimos, int *emprestimo_count) {
 
                 break;
             case 2:
-                relatorio_livros_nao_devolvidos(*emprestimos, *emprestimo_count);
+                livros_nao_devolvidos( *emprestimos, *emprestimo_count);
+
                 break;
             case 3:
-                //locatarios_com_mais_emprestimos(*emprestimos, *emprestimo_count);
+                locatarios_com_mais_livros_emprestados(*emprestimos,&emprestimo_count);
                 break;
             case 4:
                 exibir_menu_principal(NULL, NULL, emprestimos, emprestimo_count);
