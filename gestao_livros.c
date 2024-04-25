@@ -11,6 +11,7 @@
 #include "gestao_livros.h"
 
 
+
 void inicializar_biblioteca(const char *filename, Livro **livros, int *count) {
     FILE *file = fopen(filename, "r");
     if (file == NULL) {
