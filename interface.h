@@ -42,4 +42,11 @@ void locatarios_com_mais_emprestimos(Emprestimo *emprestimos, int emprestimo_cou
 void guardar_livros(const char *arquivo, Livro *livros, int livro_count);
 void guardar_emprestimo(const char *arquivo, Emprestimo *emprestimos, int emprestimo_count);
 
+
+
+
+int remover_livro(Livro **livros, int *livro_count, char *nome);
+int emprestar_livro(Livro **livros, int *livro_count, char *nome, char *usuario);
+int gerar_relatorio(Emprestimo **emprestimos, int *emprestimo_count);
+
 #endif // INTERFACE_H
