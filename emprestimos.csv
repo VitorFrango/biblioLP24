@@ -1,1 +1,26 @@
-Java Como Programar,telmo,2024-04-18 00:02:13,2024-04-25 00:02:13
+id,titulo,autor,genero,copias,user,copias_atuais,copias_emprestadas,is_devolvido,data_emprestimo,data_devolucao
+1,Livro A,Autor A,Gênero A,1,Utilizador3,1,0,0,1713714491.9501183,1714146491.9501183
+2,Livro B,Autor E,Gênero B,7,Utilizador1,4,3,0,1713541691.9501584,1713887291.9501584
+3,Livro A,Autor B,Gênero E,11,Utilizador5,5,6,1,1713196091.9501848,1713368891.9501848
+4,Livro A,Autor A,Gênero A,6,Utilizador1,5,1,1,1713973691.9502034,1714232891.9502034
+5,Livro B,Autor C,Gênero B,17,Utilizador1,6,11,1,1713368891.9502218,1713714491.9502218
+6,Livro A,Autor B,Gênero D,3,Utilizador2,1,2,0,1713368891.9502392,1713714491.9502392
+7,Livro E,Autor A,Gênero C,15,Utilizador4,5,10,0,1713628091.950258,1713887291.950258
+8,Livro A,Autor E,Gênero B,18,Utilizador1,9,9,0,1713541691.9502778,1713887291.9502778
+9,Livro C,Autor D,Gênero A,6,Utilizador3,3,3,0,1713800891.950296,1714060091.950296
+10,Livro A,Autor C,Gênero B,18,Utilizador3,14,4,0,1713368891.9503133,1713714491.9503133
+id,titulo,autor,genero,copias,user,copias_atuais,copias_emprestadas,is_devolvido,data_emprestimo,data_devolucao
+2,""Dom Casmurro"",""Machado de Assis"",""Literatura"",0,vitor,-1,1,0,2024-04-25 16:54:03,2024-05-02 16:54:03
+id,titulo,autor,genero,copias,user,copias_atuais,copias_emprestadas,is_devolvido,data_emprestimo,data_devolucao
+2,""Dom Casmurro"",""Machado de Assis"",""Literatura"",0,vitor,-1,1,0,2024-04-25 16:54:03,2024-05-02 16:54:03
+id,titulo,autor,genero,copias,user,copias_atuais,copias_emprestadas,is_devolvido,data_emprestimo,data_devolucao
+2,""Dom Casmurro"",""Machado de Assis"",""Literatura"",0,vitor,-1,1,0,2024-04-25 16:54:03,2024-05-02 16:54:03
+id,titulo,autor,genero,copias,user,copias_atuais,copias_emprestadas,is_devolvido,data_emprestimo,data_devolucao
+id,titulo,autor,genero,copias,user,copias_atuais,copias_emprestadas,is_devolvido,data_emprestimo,data_devolucao
+4,""Senhor dos Aneis"",""J. R. R. Tolkien"",""Literatura"",0,ze,-1,1,0,2024-04-25 17:17:01,2024-05-02 17:17:01
+id,titulo,autor,genero,copias,user,copias_atuais,copias_emprestadas,is_devolvido,data_emprestimo,data_devolucao
+4,""Senhor dos Aneis"",""J. R. R. Tolkien"",""Literatura"",0,ze,-1,1,0,2024-04-25 17:17:01,2024-05-02 17:17:01
+id,titulo,autor,genero,copias,user,copias_atuais,copias_emprestadas,is_devolvido,data_emprestimo,data_devolucao
+4,""Senhor dos Aneis"",""J. R. R. Tolkien"",""Literatura"",0,ze,-1,1,0,2024-04-25 17:17:01,2024-05-02 17:17:01
+id,titulo,autor,genero,copias,user,copias_atuais,copias_emprestadas,is_devolvido,data_emprestimo,data_devolucao
+4,""Senhor dos Aneis"",""J. R. R. Tolkien"",""Literatura"",0,ze,-1,1,0,2024-04-25 17:17:01,2024-05-02 17:17:01

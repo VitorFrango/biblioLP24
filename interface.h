@@ -8,6 +8,7 @@
 #include "gestao_livros.h"
 #include "gestao_emprestimos.h"
 #include "gera_relatorios.h"
+#include "interface.h"
 
 
 
@@ -16,14 +17,18 @@ void menu_gestao_livros(Livro **livros, int *livro_count);
 void menu_gestao_emprestimos(Livro **livros, int *livro_count, Emprestimo **emprestimos, int *emprestimo_count);
 void menu_relatorios(Emprestimo **emprestimos, int *emprestimo_count);
 
-
 // Protótipos de funções para a gestão de livros
 void adicionar_livro(Livro **livros, int *livro_count);
 void remover_livro_por_id(Livro **livros, int *count, int id);
 void editar_livro(Livro *livros, int count, int id);
 void pesquisar_livros(const char *filename, const char *titulo_procura);
 
+
 // Protótipos de funções para a gestão de empréstimos
+void empresta_livro(Livro *livros, int count, Emprestimo **emprestimos, int *emprestimo_count);
+
+// Protótipos de funções para a gestão de empréstimos
+
 void remover_livro_por_id(Livro **livros, int *count, int id);
 void devolver_livro(Livro *livros, int livro_count, Emprestimo **emprestimos, int *emprestimo_count);
 void renovar_emprestimo(Emprestimo *emprestimos, int emprestimo_count);

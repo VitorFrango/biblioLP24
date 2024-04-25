@@ -24,16 +24,13 @@ O programa deve ser modular, com cada funcionalidade implementada num módulo se
  implementando testes de unidade e de integração.
 */
 
-
-
-
 #include "gestao_emprestimos.h"
 #include "gestao_livros.h"
 #include "interface.h"
 
 
-int main() {
 
+int  main() {
 
     Livro *livros; // Ponteiro para array de livros
     livros = NULL; // Inicializa ponteiro com NULL
@@ -41,14 +38,18 @@ int main() {
     Emprestimo *emprestimos = NULL; // Ponteiro para array de empréstimos
     int emprestimo_count = 0; // Contador de empréstimos
 
+
+
     // Inicializa a biblioteca com os dados do arquivo livros.csv
     inicializar_biblioteca("livros.csv", &livros, &livro_count);
+
+
+
+    // Exibe o menu principal
 
     exibir_menu_principal(&livros, &livro_count, &emprestimos, &emprestimo_count);
     menu_gestao_livros(&livros, &livro_count);
     menu_gestao_emprestimos(&livros, &livro_count, &emprestimos, &emprestimo_count);
     menu_relatorios(&emprestimos, &emprestimo_count);
-
-
 
 }

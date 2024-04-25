@@ -25,6 +25,7 @@ void exibir_menu_principal(Livro **livros, int *livro_count, Emprestimo **empres
                 menu_gestao_livros(livros, livro_count);
                 break;
             case 2:
+                copiarDadosLivrosParaEmprestimos("livros.csv", "emprestimos.csv", "pos.csv", *emprestimo_count);
                 menu_gestao_emprestimos(livros, livro_count, emprestimos, emprestimo_count);
                 break;
             case 3:
@@ -74,21 +75,26 @@ void menu_gestao_livros(Livro **livros, int *livro_count) {
                 int id;
                 printf("ID do livro a editar: ");
                 scanf("%d", &id);
-                editar_livro(livros, *livro_count,id);
+                editar_livro(*livros, *livro_count, id);
             }
                 break;
-            case 4:
+            case 4: {
                 printf("Digite o título do livro: ");
                 fgets(titulo, sizeof(titulo), stdin);
                 titulo[strcspn(titulo, "\n")] = 0;  // Remove o caractere de nova linha do fim da string
                 pesquisar_livros("livros.csv", titulo);
+            }
                 break;
             case 5:
                 guardar_livros("livros.csv", *livros, *livro_count);
                 break;
+
             case 6:
+                guardar_livros("livros.csv", *livros, *livro_count);
                 exibir_menu_principal(livros, livro_count, NULL, NULL);
-            case 0:
+                break;
+
+                case 0:
                 printf("Adeus!\n");
                 exit(0);
             default:
@@ -105,7 +111,7 @@ void menu_gestao_emprestimos(Livro **livros, int *livro_count, Emprestimo **empr
         printf("1. Emprestar livro\n");
         printf("2. Devolver livro\n");
         printf("3. Renovar empréstimo\n");
-        printf("4. GUardar empréstimos\n");
+        printf("4. Guardar empréstimos\n");
         printf("5. Voltar ao menu principal\n");
         printf("0. Sair\n");
         printf("Escolha uma opção: ");
@@ -117,6 +123,7 @@ void menu_gestao_emprestimos(Livro **livros, int *livro_count, Emprestimo **empr
                 break;
             case 2:
                 devolver_livro(*livros, *livro_count, emprestimos, emprestimo_count);
+
                 break;
             case 3:
                 renovar_emprestimo(*emprestimos, *emprestimo_count);
@@ -125,9 +132,11 @@ void menu_gestao_emprestimos(Livro **livros, int *livro_count, Emprestimo **empr
                 guardar_emprestimo("emprestimos.csv", *emprestimos, *emprestimo_count);
                 break;
             case 5:
+                guardar_emprestimo("emprestimos.csv", *emprestimos, *emprestimo_count);
                 exibir_menu_principal(livros, livro_count, emprestimos, emprestimo_count);
                 break;
             case 0:
+                guardar_emprestimo("emprestimos.csv", *emprestimos, *emprestimo_count);
                 printf("Adeus!\n");
                 exit(0);
             default:
@@ -155,10 +164,11 @@ void menu_relatorios(Emprestimo **emprestimos, int *emprestimo_count) {
 
                 break;
             case 2:
-                relatorio_livros_nao_devolvidos(*emprestimos, *emprestimo_count);
+                livros_nao_devolvidos( *emprestimos, *emprestimo_count);
+
                 break;
             case 3:
-                locatarios_com_mais_emprestimos(*emprestimos, *emprestimo_count);
+                locatarios_com_mais_livros_emprestados(*emprestimos,&emprestimo_count);
                 break;
             case 4:
                 exibir_menu_principal(NULL, NULL, emprestimos, emprestimo_count);
