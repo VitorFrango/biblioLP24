@@ -2,6 +2,9 @@
 #define GESTAO_EMPRESTIMOS_H
 
 #include <time.h> // Para o uso de time_t
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "gestao_livros.h"
 
 
@@ -35,6 +38,7 @@ typedef struct {
     int count;
 } LivroCount;
 
+void fechar_arquivos(FILE *f1, FILE *f2, FILE *f3);
 
 
 // Prototipo da função para emprestar livro
@@ -45,7 +49,7 @@ void empresta_livro(Livro *livros, int count, Emprestimo **emprestimos, int *emp
 void carregar_emprestimos(const char *filename, Emprestimo **emprestimos, int *emprestimo_count);
 
 // Prototipo da função para copiar dados de livros para emprestimos
-void copiarDadosLivrosParaEmprestimos(const char *livrosFilePath, const char *emprestimosFilePath);
+void copiarDadosLivrosParaEmprestimos(const char *livrosFilePath, const char *emprestimosFilePath, const char *posFilePath, int emprestimo_count);
 
 //void inicializar_emprestimos(const char *filename, Livro **livros, int *count);
 void devolver_livro(Livro *livros, int count, Emprestimo **emprestimos, int *emprestimo_count);

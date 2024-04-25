@@ -13,7 +13,4 @@ add_executable(biblioteca principal.c
         interface.c
         interface.h
         main.c
-        teste_iremover_livro.c
-        teste_adicionar_livros.c
-        teste_empresta_livro.c
 )

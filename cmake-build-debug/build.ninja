@@ -85,24 +85,6 @@ build CMakeFiles/biblioteca.dir/main.c.o: C_COMPILER__biblioteca_unscanned_Debug
   OBJECT_DIR = CMakeFiles/biblioteca.dir
   OBJECT_FILE_DIR = CMakeFiles/biblioteca.dir
 
-build CMakeFiles/biblioteca.dir/teste_iremover_livro.c.o: C_COMPILER__biblioteca_unscanned_Debug /Users/vitorfrango/Library/CloudStorage/OneDrive-UniversidadeAberta/1$ Ano/Laboratorio$ de$ Programação/biblioteca/teste_iremover_livro.c || cmake_object_order_depends_target_biblioteca
-  DEP_FILE = CMakeFiles/biblioteca.dir/teste_iremover_livro.c.o.d
-  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
-  OBJECT_DIR = CMakeFiles/biblioteca.dir
-  OBJECT_FILE_DIR = CMakeFiles/biblioteca.dir
-
-build CMakeFiles/biblioteca.dir/teste_adicionar_livros.c.o: C_COMPILER__biblioteca_unscanned_Debug /Users/vitorfrango/Library/CloudStorage/OneDrive-UniversidadeAberta/1$ Ano/Laboratorio$ de$ Programação/biblioteca/teste_adicionar_livros.c || cmake_object_order_depends_target_biblioteca
-  DEP_FILE = CMakeFiles/biblioteca.dir/teste_adicionar_livros.c.o.d
-  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
-  OBJECT_DIR = CMakeFiles/biblioteca.dir
-  OBJECT_FILE_DIR = CMakeFiles/biblioteca.dir
-
-build CMakeFiles/biblioteca.dir/teste_empresta_livro.c.o: C_COMPILER__biblioteca_unscanned_Debug /Users/vitorfrango/Library/CloudStorage/OneDrive-UniversidadeAberta/1$ Ano/Laboratorio$ de$ Programação/biblioteca/teste_empresta_livro.c || cmake_object_order_depends_target_biblioteca
-  DEP_FILE = CMakeFiles/biblioteca.dir/teste_empresta_livro.c.o.d
-  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
-  OBJECT_DIR = CMakeFiles/biblioteca.dir
-  OBJECT_FILE_DIR = CMakeFiles/biblioteca.dir
-
 
 # =============================================================================
 # Link build statements for EXECUTABLE target biblioteca
@@ -111,7 +93,7 @@ build CMakeFiles/biblioteca.dir/teste_empresta_livro.c.o: C_COMPILER__biblioteca
 #############################################
 # Link the executable biblioteca
 
-build biblioteca: C_EXECUTABLE_LINKER__biblioteca_Debug CMakeFiles/biblioteca.dir/principal.c.o CMakeFiles/biblioteca.dir/gestao_emprestimos.c.o CMakeFiles/biblioteca.dir/gera_relatorios.c.o CMakeFiles/biblioteca.dir/gestao_livros.c.o CMakeFiles/biblioteca.dir/interface.c.o CMakeFiles/biblioteca.dir/main.c.o CMakeFiles/biblioteca.dir/teste_iremover_livro.c.o CMakeFiles/biblioteca.dir/teste_adicionar_livros.c.o CMakeFiles/biblioteca.dir/teste_empresta_livro.c.o
+build biblioteca: C_EXECUTABLE_LINKER__biblioteca_Debug CMakeFiles/biblioteca.dir/principal.c.o CMakeFiles/biblioteca.dir/gestao_emprestimos.c.o CMakeFiles/biblioteca.dir/gera_relatorios.c.o CMakeFiles/biblioteca.dir/gestao_livros.c.o CMakeFiles/biblioteca.dir/interface.c.o CMakeFiles/biblioteca.dir/main.c.o
   FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk
   OBJECT_DIR = CMakeFiles/biblioteca.dir
   POST_BUILD = :

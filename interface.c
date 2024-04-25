@@ -25,7 +25,9 @@ void exibir_menu_principal(Livro **livros, int *livro_count, Emprestimo **empres
                 menu_gestao_livros(livros, livro_count);
                 break;
             case 2:
+                copiarDadosLivrosParaEmprestimos("livros.csv", "emprestimos.csv", "posFile.txt", *emprestimo_count);
                 menu_gestao_emprestimos(livros, livro_count, emprestimos, emprestimo_count);
+
                 break;
             case 3:
                 menu_relatorios(emprestimos, emprestimo_count);
@@ -113,10 +115,11 @@ void menu_gestao_emprestimos(Livro **livros, int *livro_count, Emprestimo **empr
 
         switch (escolha) {
             case 1:
-                copiarDadosLivrosParaEmprestimos("livros.csv", "emprestimos.csv");
+                copiarDadosLivrosParaEmprestimos("livros.csv", "emprestimos.csv", "posFile.txt", *emprestimo_count);
                 empresta_livro(*livros, *livro_count, emprestimos, emprestimo_count);
                 break;
             case 2:
+
                 devolver_livro(*livros, *livro_count, emprestimos, emprestimo_count);
                 break;
             case 3:
